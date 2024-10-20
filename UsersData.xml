@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <users>
+            
+    
+    <user>
+                        
         
+        <username>example</username>
+                        
+        
+        <password>hashedpassword</password>
+                    
+    
+    </user>
+        
+    
     <user>
                 
-        <username>example</username>
+        <username>hola</username>
                 
-        <password>hashedpassword</password>
+        <password>a03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67</password>
             
     </user>
     
     <user>
-        <username>hola</username>
-        <password>a03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67</password>
+        <username>adios</username>
+        <password>1d6442ddcfd9db1ff81df77cbefcd5afcc8c7ca952ab3101ede17a84b866d3f3</password>
     </user>
 </users>
