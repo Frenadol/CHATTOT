@@ -1,6 +1,5 @@
 package com.github.Frenadol.view;
 
-import com.github.Frenadol.model.User;
 import com.github.Frenadol.utils.Security;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="301.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.PrimaryController">
+   <children>
+      <Label layoutX="125.0" layoutY="104.0" text="Bienbenido a Chattot">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="registerButtom" layoutX="262.0" layoutY="175.0" onAction="#switchToRegister" text="Crear Cuenta" />
+      <Button fx:id="inicieButtom" layoutX="95.0" layoutY="175.0" onAction="#switchToInicie" text="Iniciar Sesion" />
+      <Label layoutX="124.0" layoutY="33.0" text="CHATTOT">
+         <font>
+            <Font name="Constantia" size="40.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
