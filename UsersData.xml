@@ -1,14 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <users>
+                        
+    
+    
+    
+    
+    <user>
+                                                
+        
+        
+        
+        
+        <username>example</username>
+                                                
+        
+        
+        
+        
+        <password>hashedpassword</password>
+                                            
+    
+    
+    
+    
+    </user>
+                    
+    
+    
+    
+    
+    <user>
+                                        
+        
+        
+        
+        <username>hola</username>
+                                        
+        
+        
+        
+        <password>a03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67</password>
+                                    
+    
+    
+    
+    </user>
+                
+    
+    
+    
+    <user>
+                                
+        
+        
+        <username>adios</username>
+                                
+        
+        
+        <password>1d6442ddcfd9db1ff81df77cbefcd5afcc8c7ca952ab3101ede17a84b866d3f3</password>
+                            
+    
+    
+    </user>
             
+    
     
     <user>
                         
         
-        <username>example</username>
+        <username>1</username>
                         
         
-        <password>hashedpassword</password>
+        <password>67b176705b46206614219f47a05aee7ae6a3edbe850bbbe214c536b989aea4d2</password>
                     
     
     </user>
@@ -16,14 +79,17 @@
     
     <user>
                 
-        <username>hola</username>
+        <username>2</username>
                 
-        <password>a03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67</password>
+        <password>b1b1bd1ed240b1496c81ccf19ceccf2af6fd24fac10ae42023628abbe2687310</password>
+                
+        <image>file:src/resources/default-profile.png</image>
             
     </user>
     
     <user>
-        <username>adios</username>
-        <password>1d6442ddcfd9db1ff81df77cbefcd5afcc8c7ca952ab3101ede17a84b866d3f3</password>
+        <username>4</username>
+        <password>b410677b84ed73fac43fcf1abd933151dd417d932a0ef9b0260ecf8b7b72ecb9</password>
+        <image>file:src/resources/default-profile.png</image>
     </user>
 </users>

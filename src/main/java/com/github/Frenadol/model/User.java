@@ -17,6 +17,9 @@ public class User {
     public User() {
     }
 
+    public User(String name, String image) {
+    }
+
     public String getName() {
         return name;
     }

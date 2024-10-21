@@ -40,11 +40,10 @@ public class InicieSessionController {
         try {
             File xmlFile = new File(USERS_FILE);
 
-            // Check if user already exists in the XML file
             if (isUserExists(username, pass, xmlFile)) {
                 String message = "Usuario Correcto.";
                 showAlert(message);
-                App.setRoot("secondary");
+                App.setRoot("MainMenu");
             } else {
                 String message = "Usuario Incorrecto.";
                 showAlert(message);
