@@ -10,14 +10,13 @@ import java.util.List;
 
 public class XmlReader {
 
-    private String filePath;
+    public String filePath;
 
     public XmlReader(String filePath) {
         this.filePath = filePath;
     }
 
-
-    public List<User> getUsersFromXML() {
+    public static List<User> getUsersFromXML(String filePath) {
         List<User> users = new ArrayList<>();
 
         try {
@@ -33,11 +32,12 @@ public class XmlReader {
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    String name = element.getElementsByTagName("name").item(0).getTextContent();
-                    String image = element.getElementsByTagName("image").item(0).getTextContent();
+                    String name = element.getElementsByTagName("username").item(0).getTextContent();
+                    String imageBase64 = element.getElementsByTagName("image").item(0).getTextContent();
+                    byte[] image = java.util.Base64.getDecoder().decode(imageBase64);
 
-                    // Crear el objeto User y añadirlo a la lista
-                    users.add(new User(name,image));
+                    // Create the User object and add it to the list
+                    users.add(new User(name, image));
                 }
             }
         } catch (Exception e) {

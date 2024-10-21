@@ -2,24 +2,17 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
    <children>
       <Text layoutX="14.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" />
-      <TableView fx:id="usersTable" layoutX="14.0" layoutY="61.0" prefHeight="292.0" prefWidth="237.0">
+      <TableView fx:id="usersTable" layoutX="129.0" layoutY="14.0" prefHeight="601.0" prefWidth="789.0">
         <columns>
-          <TableColumn fx:id="nameUserColumn" prefWidth="116.0" text="Usuarios disponibles:" />
-            <TableColumn fx:id="imageProfileColumn" prefWidth="120.80001220703124" text="Imagen de perfil:" />
+          <TableColumn fx:id="nameUserColumn" prefWidth="169.33331298828125" text="Usuarios disponibles:" />
+            <TableColumn fx:id="imageProfileColumn" prefWidth="618.6666768391927" text="Imagen de perfil:" />
         </columns>
       </TableView>
-      <ImageView fitHeight="103.0" fitWidth="96.0" layoutX="490.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../Downloads/user.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

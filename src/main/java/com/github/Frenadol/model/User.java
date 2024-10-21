@@ -1,6 +1,5 @@
 package com.github.Frenadol.model;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class User {
@@ -11,13 +10,14 @@ public class User {
     public User(String name, String password, byte[] profileImagen) {
         this.name = name;
         this.password = password;
-        this.profileImagen = profileImagen;
+        profileImagen = profileImagen;
+    }
+    public User(String name, byte[] profileImagen) {
+        this.name = name;
+        profileImagen = profileImagen;
     }
 
     public User() {
-    }
-
-    public User(String name, String image) {
     }
 
     public String getName() {
@@ -41,7 +41,7 @@ public class User {
     }
 
     public void setProfileImagen(byte[] profileImagen) {
-        this.profileImagen = profileImagen;
+        profileImagen = profileImagen;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password, Arrays.hashCode(profileImagen));
+        return Objects.hash(name, password,profileImagen);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class User {
         return "========== Informacion del usuario ==========\n" +
                 "Name          : " + name + "\n" +
                 "Password      : " + password + "\n" +
-                "Profile Image : " + Arrays.toString(profileImagen) + "\n" +
+                "Profile Image : " + profileImagen + "\n" +
                 "================================";
     }
 }
