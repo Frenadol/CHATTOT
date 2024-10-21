@@ -6,7 +6,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,9 +18,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class RegisterUserController {
     @FXML
@@ -27,10 +31,12 @@ public class RegisterUserController {
     private PasswordField textPassword;
     @FXML
     private Button usersRegister;
+    @FXML
+    private ImageView imageView;
+
+    private File imageFile;
 
     private static final String USERS_FILE = "UsersData.xml";
-    private static final String DEFAULT_IMAGE_PATH = "file:src/resources/default-profile.png";
-
     /**
      * This method is used to register a new user and save it to an XML file.
      */
@@ -63,8 +69,17 @@ public class RegisterUserController {
                 return;
             }
 
+            // Convert image to bytes
+            byte[] imageData = null;
+            if (imageFile != null) {
+                imageData = new byte[(int) imageFile.length()];
+                FileInputStream fis = new FileInputStream(imageFile);
+                fis.read(imageData);
+                fis.close();
+            }
+
             // Create new User element and save to XML
-            addUserToXML(username, hashedPassword, DEFAULT_IMAGE_PATH, xmlFile);
+            addUserToXML(username, hashedPassword, imageData, xmlFile);
 
             String message = "Usuario registrado con éxito!";
             showAlert(message);
@@ -105,7 +120,7 @@ public class RegisterUserController {
     /**
      * Add a new user to the XML file with a default image.
      */
-    private void addUserToXML(String username, String password, String imagePath, File xmlFile)
+    private void addUserToXML(String username, String password, byte[] imageData, File xmlFile)
             throws ParserConfigurationException, TransformerException, IOException, org.xml.sax.SAXException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -135,9 +150,9 @@ public class RegisterUserController {
         passwordElement.appendChild(doc.createTextNode(password));
         userElement.appendChild(passwordElement);
 
-        // Añadir la <image> por defecto
+        // Añadir la <image>
         Element imageElement = doc.createElement("image");
-        imageElement.appendChild(doc.createTextNode(imagePath));  // Ruta de la imagen por defecto
+        imageElement.appendChild(doc.createTextNode(Base64.getEncoder().encodeToString(imageData)));
         userElement.appendChild(imageElement);
 
         // Guardar el documento en el archivo XML
@@ -163,5 +178,25 @@ public class RegisterUserController {
     @FXML
     private void onClose() {
         // Método para cerrar la ventana si es necesario
+    }
+
+    @FXML
+    private void loadImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar Imagen");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+        Stage stage = (Stage) imageView.getScene().getWindow();
+        imageFile = fileChooser.showOpenDialog(stage);
+        if (imageFile != null) {
+            try {
+                InputStream is = new FileInputStream(imageFile);
+                Image image = new Image(is);
+                imageView.setImage(image); // Mostrar la imagen en el ImageView
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
