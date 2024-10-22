@@ -1,6 +1,8 @@
 package com.github.Frenadol.view;
 
 import com.github.Frenadol.App;
+import com.github.Frenadol.model.User;
+import com.github.Frenadol.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -73,6 +75,11 @@ public class InicieSessionController {
                 String existingPasswordHash = element.getElementsByTagName("password").item(0).getTextContent();
 
                 if (existingUsername.equals(username) && checkPassword(password, existingPasswordHash)) {
+                    SessionManager sessionManager = SessionManager.getInstance();
+                    User userLogin= new User(username, existingPasswordHash.getBytes());
+                    sessionManager.setCurrentUser(userLogin);
+                    System.out.println(userLogin);
+
                     return true;
                 }
             }

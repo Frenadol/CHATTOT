@@ -4,7 +4,7 @@ package com.github.Frenadol.model;
 
 public class Message {
     private String text;
-    private String sender;
+    private String send;
     private String receiver;
 
     public Message() {
@@ -12,7 +12,7 @@ public class Message {
 
     public Message(String text, String send, String receiver) {
         this.text = text;
-        this.sender = send;
+        this.send = send;
         this.receiver = receiver;
     }
 
@@ -24,12 +24,12 @@ public class Message {
         this.text = text;
     }
 
-    public String getSender() {
-        return sender;
+    public String getSend() {
+        return send;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setSend(String send) {
+        this.send = send;
     }
 
     public String getReceiver() {
@@ -44,7 +44,7 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "text='" + text + '\'' +
-                ", send='" + sender + '\'' +
+                ", send='" + send + '\'' +
                 ", receiver='" + receiver + '\'' +
                 '}';
     }
