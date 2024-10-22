@@ -1,6 +1,5 @@
 package com.github.Frenadol.model;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,30 +7,23 @@ import java.util.Objects;
 public class User {
     private String name;
     private String password;
-    private byte[] ProfileImagen;
-    private List<User> contacts = new ArrayList<>();
+    private byte[] ProfileImage;
+    private List<User> contacts;
 
-    public User(String name, String password, byte[] profileImagen, List<User> contacts) {
+    public User(String name, String password, byte[] profileImage, List<User> contacts) {
         this.name = name;
         this.password = password;
-        ProfileImagen = profileImagen;
-        this.contacts = contacts;
+        ProfileImage = profileImage;
+        this.contacts = contacts != null ? contacts : new ArrayList<>();
     }
 
-    public List<User> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<User> contacts) {
-        this.contacts = contacts;
-    }
-
-    public User(String name, byte[] profileImagen) {
+    public User(String name, byte[] profileImage) {
         this.name = name;
-        ProfileImagen = profileImagen;
+        ProfileImage = profileImage;
     }
 
     public User() {
+        this.contacts = new ArrayList<>();
     }
 
     public String getName() {
@@ -42,8 +34,16 @@ public class User {
         return password;
     }
 
+    public byte[] getProfileImage() {
+        return ProfileImage;
+    }
+
+    public List<User> getContacts() {
+        return contacts;
+    }
+
     public byte[] getProfileImagen() {
-        return ProfileImagen;
+        return ProfileImage;
     }
 
     public void setName(String name) {
@@ -53,9 +53,19 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public void setProfileImage(byte[] profileImage) {
+        ProfileImage = profileImage;
+    }
 
-    public void setProfileImagen(byte[] profileImagen) {
-        ProfileImagen = profileImagen;
+    public void setContacts(List<User> contacts) {
+        this.contacts = contacts != null ? contacts : new ArrayList<>();
+    }
+
+    public void addContactToList(User contact) {
+        if (contacts == null) {
+            contacts = new ArrayList<>();
+        }
+        contacts.add(contact);
     }
 
     @Override
@@ -63,28 +73,22 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(ProfileImagen, user.ProfileImagen);
+        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(ProfileImage, user.ProfileImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password,ProfileImagen);
+        return Objects.hash(name, password, ProfileImage);
     }
-
-
 
     @Override
     public String toString() {
         return "========== Informacion del usuario ==========\n" +
                 "Name          : " + name + "\n" +
                 "Password      : " + password + "\n" +
-                "Profile Image : " + ProfileImagen + "\n" +
+                "Profile Image : " + ProfileImage + "\n" +
                 "================================";
     }
-    public void addContactToList(User newContact) {
-        if (!contacts.contains(newContact)) {
-            contacts.add(newContact);
-        }
-    }
+
 
 }

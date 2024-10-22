@@ -3,7 +3,6 @@ package com.github.Frenadol.view;
 import com.github.Frenadol.model.User;
 import com.github.Frenadol.utils.SessionManager;
 import com.github.Frenadol.utils.XmlReader;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,8 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,15 +34,20 @@ public class MainMenuController implements Initializable {
     private ObservableList<User> userList = FXCollections.observableArrayList();
     @FXML
     private Button addContactButton;
+    @FXML
+    private Label NameUser;
 
     String filePath = "UsersData.xml";
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         ListUsers();
         nameUserColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         imageProfileColumn.setCellValueFactory(cellData -> {
-            byte[] visualData = cellData.getValue().getProfileImagen();
+            byte[] visualData = cellData.getValue().getProfileImage();
             if (visualData != null && visualData.length > 0) {
                 ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
                 Image image = new Image(bis);
@@ -60,6 +62,12 @@ public class MainMenuController implements Initializable {
                 return new SimpleObjectProperty<>(imageView);
             }
         });
+
+
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            NameUser.setText(currentUser.getName());
+        }
     }
 
     public void ListUsers() {
@@ -102,8 +110,8 @@ public class MainMenuController implements Initializable {
             currentUser.addContactToList(selectedContact);
             showAlert("Contacto agregado exitosamente.");
 
-            UsersDAO usersDAO = new UsersDAO();
-            List<User> users = usersDAO.loadUsers();
+            // Cargar la lista de usuarios desde el archivo XML
+            List<User> users = XmlReader.getUsersFromXML(filePath);
 
             if (users != null) {
                 for (User user : users) {
@@ -112,11 +120,24 @@ public class MainMenuController implements Initializable {
                         break;
                     }
                 }
+                // Limpiar las contraseñas antes de guardar
+                for (User user : users) {
+                    user.setPassword(null);
+                    for (User contact : user.getContacts()) {
+                        contact.setPassword(null);
+                    }
+                }
                 // Guardar los cambios en el archivo XML
-                usersDAO.saveUsers(users);
+                XmlReader.saveUsersToXML(users, filePath);
             }
         } else {
             showAlert("Este contacto ya está en tu lista.");
         }
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(message);
+        alert.show();
     }
 }
