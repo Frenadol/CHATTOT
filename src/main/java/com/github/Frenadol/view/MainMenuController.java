@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,6 +37,8 @@ public class MainMenuController implements Initializable {
     private TableColumn<User, ImageView> imageProfileColumn;
     private ObservableList<User> userList = FXCollections.observableArrayList();
     private ImageView imageView;
+    @FXML
+    private Label NameUser;
 
     String filePath = "UsersData.xml";
 
@@ -43,20 +46,18 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle resources) {
         ListUsers();
         nameUserColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        nameUserColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         imageProfileColumn.setCellValueFactory(cellData -> {
             byte[] visualData = cellData.getValue().getProfileImagen();
-            if (visualData != null) {
+            if (visualData != null && visualData.length > 0) {
                 ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
                 Image image = new Image(bis);
-
-                imageView = new ImageView(image);
+                ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(100);
                 return new SimpleObjectProperty<>(imageView);
             } else {
                 // Return an empty ImageView or a placeholder ImageView
-                imageView = new ImageView();
+                ImageView imageView = new ImageView();
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(100);
                 return new SimpleObjectProperty<>(imageView);

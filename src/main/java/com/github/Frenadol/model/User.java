@@ -5,16 +5,16 @@ import java.util.Objects;
 public class User {
     private String name;
     private String password;
-    private byte[] profileImagen;
+    private byte[] ProfileImagen;
 
     public User(String name, String password, byte[] profileImagen) {
         this.name = name;
         this.password = password;
-        profileImagen = profileImagen;
+        ProfileImagen = profileImagen;
     }
     public User(String name, byte[] profileImagen) {
         this.name = name;
-        profileImagen = profileImagen;
+        ProfileImagen = profileImagen;
     }
 
     public User() {
@@ -29,7 +29,7 @@ public class User {
     }
 
     public byte[] getProfileImagen() {
-        return profileImagen;
+        return ProfileImagen;
     }
 
     public void setName(String name) {
@@ -41,7 +41,7 @@ public class User {
     }
 
     public void setProfileImagen(byte[] profileImagen) {
-        profileImagen = profileImagen;
+        ProfileImagen = profileImagen;
     }
 
     @Override
@@ -49,12 +49,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(profileImagen, user.profileImagen);
+        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(ProfileImagen, user.ProfileImagen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password,profileImagen);
+        return Objects.hash(name, password,ProfileImagen);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class User {
         return "========== Informacion del usuario ==========\n" +
                 "Name          : " + name + "\n" +
                 "Password      : " + password + "\n" +
-                "Profile Image : " + profileImagen + "\n" +
+                "Profile Image : " + ProfileImagen + "\n" +
                 "================================";
     }
 }
