@@ -1,17 +1,31 @@
 package com.github.Frenadol.model;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
     private String name;
     private String password;
     private byte[] ProfileImagen;
+    private List<User> contacts = new ArrayList<>();
 
-    public User(String name, String password, byte[] profileImagen) {
+    public User(String name, String password, byte[] profileImagen, List<User> contacts) {
         this.name = name;
         this.password = password;
         ProfileImagen = profileImagen;
+        this.contacts = contacts;
     }
+
+    public List<User> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<User> contacts) {
+        this.contacts = contacts;
+    }
+
     public User(String name, byte[] profileImagen) {
         this.name = name;
         ProfileImagen = profileImagen;
@@ -57,6 +71,8 @@ public class User {
         return Objects.hash(name, password,ProfileImagen);
     }
 
+
+
     @Override
     public String toString() {
         return "========== Informacion del usuario ==========\n" +
@@ -65,4 +81,10 @@ public class User {
                 "Profile Image : " + ProfileImagen + "\n" +
                 "================================";
     }
+    public void addContactToList(User newContact) {
+        if (!contacts.contains(newContact)) {
+            contacts.add(newContact);
+        }
+    }
+
 }
