@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="832.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
    <children>
-      <Text layoutX="14.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" />
-      <TableView fx:id="usersTable" layoutX="129.0" layoutY="14.0" prefHeight="601.0" prefWidth="789.0">
+      <Text layoutX="568.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" wrappingWidth="249.33333333333348" />
+      <TableView fx:id="usersTable" editable="true" layoutX="568.0" layoutY="85.0" prefHeight="401.0" prefWidth="249.0">
         <columns>
-          <TableColumn fx:id="nameUserColumn" prefWidth="169.33331298828125" text="Usuarios disponibles:" />
-            <TableColumn fx:id="imageProfileColumn" prefWidth="618.6666768391927" text="Imagen de perfil:" />
+          <TableColumn fx:id="nameUserColumn" prefWidth="146.66668701171875" text="Usuarios disponibles:" />
+            <TableColumn fx:id="imageProfileColumn" prefWidth="100.6666259765625" text="Imagen de perfil:" />
         </columns>
       </TableView>
+      <Label fx:id="NameUser" layoutX="14.0" layoutY="23.0" prefHeight="16.0" prefWidth="422.0" text="User:">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
