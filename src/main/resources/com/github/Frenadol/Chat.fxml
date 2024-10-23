@@ -4,23 +4,18 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<DialogPane fx:id="chatDialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="351.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
-    <header>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="580.0">
-         <children>
-            <ListView fx:id="messageList" prefHeight="263.0" prefWidth="580.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children></AnchorPane>
-    </header>
-    <content>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="580.0">
-         <children>
-            <TextField fx:id="messageField" layoutX="32.0" layoutY="10.0" prefHeight="35.0" prefWidth="457.0" AnchorPane.bottomAnchor="-8.333333333333336" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="80.66666666666669" />
-            <Button fx:id="sendButton" layoutX="514.0" layoutY="5.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="33.0" prefWidth="61.0" text="Button" AnchorPane.bottomAnchor="-1.3333333333333357" AnchorPane.rightAnchor="4.666666666666664" />
-         </children></AnchorPane>
-    </content>
-    <expandableContent>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
-    </expandableContent>
-</DialogPane>
+<VBox spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
+    <children>
+        <DialogPane fx:id="chatDialogPane" prefHeight="200" prefWidth="300" />
+        <ListView fx:id="messageList" prefHeight="200" prefWidth="300" />
+        <HBox alignment="CENTER">
+            <children>
+                <TextField fx:id="messageField" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" onMouseClicked="#sendMessage" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

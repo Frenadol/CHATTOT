@@ -10,16 +10,13 @@ public class User {
     private String password;
     private byte[] profileImage;
     private List<User> contacts;
-    private List<Message> sentMessages;
-    private List<Message> receivedMessages;
+
 
     public User(String name, String password, byte[] profileImage, List<User> contacts) {
         this.name = name;
         this.password = password;
         this.profileImage = profileImage;
         this.contacts = contacts != null ? contacts : new ArrayList<>();
-        this.sentMessages = new ArrayList<>();
-        this.receivedMessages = new ArrayList<>();
     }
 
     public User(String name, byte[] password) {
@@ -47,13 +44,9 @@ public class User {
         return contacts;
     }
 
-    public List<Message> getSentMessages() {
-        return sentMessages;
-    }
 
-    public List<Message> getReceivedMessages() {
-        return receivedMessages;
-    }
+
+
 
     public void setName(String name) {
         this.name = name;
