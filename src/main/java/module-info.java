@@ -3,6 +3,7 @@ module org.example {
     requires javafx.fxml;
     requires java.xml;
     requires java.desktop;
+    requires java.logging;
     exports com.github.Frenadol.view;
     opens com.github.Frenadol to javafx.fxml;
     exports com.github.Frenadol;

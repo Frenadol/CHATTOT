@@ -20,6 +20,7 @@ import java.util.List;
 public class XmlReader {
 
     public String filePath;
+    private static String usersPathChat = "UsersData.xml";
 
     public XmlReader(String filePath) {
         this.filePath = filePath;
@@ -130,13 +131,13 @@ public class XmlReader {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
     public static List<Message> getMessagesFromXML(String filePath) {
-        List<Message> messages = new ArrayList<>(); // Crear una nueva lista de
-        List<User> users = getUsersFromXML(filePath);
+        List<Message> messages = new ArrayList<>();
+        List<User> users = getUsersFromXML(usersPathChat); // Ensure users are loaded from the correct path
 
         try {
             File xmlFile = new File(filePath);
             if (!xmlFile.exists()) {
-                return messages; // Si el archivo no existe, devolver una lista vacía
+                return messages; // If the file does not exist, return an empty list
             }
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -151,7 +152,7 @@ public class XmlReader {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    // Obtener los detalles del mensaje desde el XML
+                    // Get message details from XML
                     String senderName = element.getElementsByTagName("sender").item(0).getTextContent();
                     String receiverName = element.getElementsByTagName("receiver").item(0).getTextContent();
                     String content = element.getElementsByTagName("content").item(0).getTextContent();
@@ -160,10 +161,10 @@ public class XmlReader {
                     User sender = findUserByName(users, senderName);
                     User receiver = findUserByName(users, receiverName);
 
-                    // Validar si se encontraron ambos usuarios
+                    // Validate if both users are found
                     if (sender != null && receiver != null) {
                         LocalDateTime timestamp = LocalDateTime.parse(timestampStr, formatter);
-                        // Crear el objeto Message y agregarlo a la lista
+                        // Create the Message object and add it to the list
                         messages.add(new Message(sender, receiver, content, timestamp));
                     } else {
                         System.err.println("Error: Sender or Receiver not found for message: " + content);
@@ -174,69 +175,15 @@ public class XmlReader {
             e.printStackTrace();
         }
 
-        return messages; // Devolver la lista de mensajes
+        return messages; // Return the list of messages
     }
 
-
-    // Método auxiliar para encontrar un usuario por nombre
-    private static User findUserByName(List<User> users, String userName) {
-        return users.stream()
-                .filter(user -> user.getName().equals(userName))
-                .findFirst()
-                .orElse(null);
-    }
-
-
-
-    public static void saveMessagesToXML(List<Message> messages, String filePath) {
-        try {
-            File xmlFile = new File(filePath);
-            if (xmlFile.exists()) {
-                // Si el archivo existe, no lo crearemos de nuevo
-                System.out.println("El archivo " + filePath + " ya existe. Se sobreescribirá.");
-            } else {
-                // Si el archivo no existe, lo crearemos
-                xmlFile.createNewFile();
-                System.out.println("Se ha creado el archivo " + filePath);
+    private static User findUserByName(List<User> users, String name) {
+        for (User user : users) {
+            if (user.getName().equals(name)) {
+                return user;
             }
-
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.newDocument();
-
-            Element rootElement = doc.createElement("messages");
-            doc.appendChild(rootElement);
-
-            for (Message message : messages) {
-                Element messageElement = doc.createElement("message");
-
-                Element sender = doc.createElement("sender");
-                sender.appendChild(doc.createTextNode(message.getSender().getName()));
-                messageElement.appendChild(sender);
-
-                Element receiver = doc.createElement("receiver");
-                receiver.appendChild(doc.createTextNode(message.getReceiver().getName()));
-                messageElement.appendChild(receiver);
-
-                Element content = doc.createElement("content");
-                content.appendChild(doc.createTextNode(message.getContent()));
-                messageElement.appendChild(content);
-
-                Element timestamp = doc.createElement("timestamp");
-                timestamp.appendChild(doc.createTextNode(message.getTimestamp().format(formatter)));
-                messageElement.appendChild(timestamp);
-
-                rootElement.appendChild(messageElement);
-            }
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(xmlFile);
-            transformer.transform(source, result);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        return null;
     }
 }
