@@ -69,7 +69,7 @@ public class RegisterUserController {
                 return;
             }
 
-
+            // Convert image to bytes
             byte[] imageData = null;
             if (imageFile != null) {
                 imageData = new byte[(int) imageFile.length()];

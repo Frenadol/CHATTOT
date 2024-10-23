@@ -39,6 +39,9 @@ public class User {
     }
 
     public List<User> getContacts() {
+        if (contacts==null){
+            contacts= new ArrayList<>();
+        }
         return contacts;
     }
 
