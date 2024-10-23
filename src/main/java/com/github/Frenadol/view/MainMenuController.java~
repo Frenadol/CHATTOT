@@ -122,7 +122,7 @@ public class MainMenuController implements Initializable {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 User currentUser = SessionManager.getInstance().getCurrentUser();
 
-                if (currentUser != null && !currentUser.getContacts().contains(selectedContact)) {
+                if (currentUser != null && currentUser.getContacts().contains(selectedContact)) {
                     currentUser.addContactToList(selectedContact);
 
 
