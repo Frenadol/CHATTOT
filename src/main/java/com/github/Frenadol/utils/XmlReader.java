@@ -1,3 +1,4 @@
+// XmlReader.java
 package com.github.Frenadol.utils;
 
 import com.github.Frenadol.model.User;
@@ -37,11 +38,23 @@ public class XmlReader {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     String name = element.getElementsByTagName("username").item(0).getTextContent();
+                    String password = element.getElementsByTagName("password").item(0).getTextContent();
                     String imageBase64 = element.getElementsByTagName("image").item(0).getTextContent();
                     byte[] image = java.util.Base64.getDecoder().decode(imageBase64);
 
+                    List<User> contacts = new ArrayList<>();
+                    NodeList contactNodes = element.getElementsByTagName("contact");
+                    for (int j = 0; j < contactNodes.getLength(); j++) {
+                        Element contactElement = (Element) contactNodes.item(j);
+                        String contactName = contactElement.getElementsByTagName("username").item(0).getTextContent();
+                        String contactPassword = contactElement.getElementsByTagName("password").item(0).getTextContent();
+                        String contactImageBase64 = contactElement.getElementsByTagName("image").item(0).getTextContent();
+                        byte[] contactImage = java.util.Base64.getDecoder().decode(contactImageBase64);
+                        contacts.add(new User(contactName, contactPassword, contactImage, null));
+                    }
+
                     // Create the User object and add it to the list
-                    users.add(new User(name, image));
+                    users.add(new User(name, password, image, contacts));
                 }
             }
         } catch (Exception e) {
@@ -67,10 +80,35 @@ public class XmlReader {
                 name.appendChild(document.createTextNode(user.getName()));
                 userElement.appendChild(name);
 
+                Element password = document.createElement("password");
+                password.appendChild(document.createTextNode(user.getPassword()));
+                userElement.appendChild(password);
+
                 Element image = document.createElement("image");
-                String imageBase64 = java.util.Base64.getEncoder().encodeToString(user.getProfileImagen());
+                String imageBase64 = java.util.Base64.getEncoder().encodeToString(user.getProfileImage());
                 image.appendChild(document.createTextNode(imageBase64));
                 userElement.appendChild(image);
+
+                Element contactsElement = document.createElement("contacts");
+                for (User contact : user.getContacts()) {
+                    Element contactElement = document.createElement("contact");
+
+                    Element contactName = document.createElement("username");
+                    contactName.appendChild(document.createTextNode(contact.getName()));
+                    contactElement.appendChild(contactName);
+
+                    Element contactPassword = document.createElement("password");
+                    contactPassword.appendChild(document.createTextNode(contact.getPassword()));
+                    contactElement.appendChild(contactPassword);
+
+                    Element contactImage = document.createElement("image");
+                    String contactImageBase64 = java.util.Base64.getEncoder().encodeToString(contact.getProfileImage());
+                    contactImage.appendChild(document.createTextNode(contactImageBase64));
+                    contactElement.appendChild(contactImage);
+
+                    contactsElement.appendChild(contactElement);
+                }
+                userElement.appendChild(contactsElement);
 
                 root.appendChild(userElement);
             }
