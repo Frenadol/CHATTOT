@@ -1,6 +1,7 @@
 // MainMenuController.java
 package com.github.Frenadol.view;
 
+import com.github.Frenadol.App;
 import com.github.Frenadol.model.User;
 import com.github.Frenadol.utils.SessionManager;
 import com.github.Frenadol.utils.XmlReader;
@@ -45,6 +46,9 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Button addContactButton;
+    @FXML
+    private Button sendMessageButton;
+
 
     String filePath = "UsersData.xml";
 
@@ -160,6 +164,22 @@ public class MainMenuController implements Initializable {
                     break;
                 }
             }
+        }
+    }
+
+    @FXML
+    private void chattedWithContact() {
+        try {
+            User selectedContact = contactsTable.getSelectionModel().getSelectedItem();
+            if (selectedContact != null) {
+                SessionManager.getInstance().setCurrentUser(selectedContact);
+                showAlert("Chat iniciado con " + selectedContact.getName());
+                App.setRoot("Chat");
+            } else {
+                showAlert("Por favor, selecciona un contacto para chatear.");
+            }
+        }catch (Exception e){
+            showAlert("Error al iniciar el chat: " + e.getMessage());
         }
     }
 

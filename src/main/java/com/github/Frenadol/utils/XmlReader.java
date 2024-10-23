@@ -1,15 +1,19 @@
 // XmlReader.java
 package com.github.Frenadol.utils;
 
+import com.github.Frenadol.model.Message;
 import com.github.Frenadol.model.User;
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +123,88 @@ public class XmlReader {
             StreamResult result = new StreamResult(new File(filePath));
             transformer.transform(source, result);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
+    public static List<Message> getMessagesFromXML(String filePath) {
+        List<Message> messages = new ArrayList<>();
+        try {
+            File xmlFile = new File(filePath);
+            if (!xmlFile.exists()) {
+                return messages;
+            }
+
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xmlFile);
+            doc.getDocumentElement().normalize();
+
+            NodeList nList = doc.getElementsByTagName("message");
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+
+                    String senderName = eElement.getElementsByTagName("sender").item(0).getTextContent();
+                    String receiverName = eElement.getElementsByTagName("receiver").item(0).getTextContent();
+                    String content = eElement.getElementsByTagName("content").item(0).getTextContent();
+                    LocalDateTime timestamp = LocalDateTime.parse(eElement.getElementsByTagName("timestamp").item(0).getTextContent(), formatter);
+
+                    User sender = new User(senderName, null);
+                    User receiver = new User(receiverName, null);
+
+                    Message message = new Message(sender, receiver, content, timestamp);
+                    messages.add(message);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return messages;
+    }
+
+    public static void saveMessagesToXML(List<Message> messages, String filePath) {
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.newDocument();
+
+            Element rootElement = doc.createElement("messages");
+            doc.appendChild(rootElement);
+
+            for (Message message : messages) {
+                Element messageElement = doc.createElement("message");
+
+                Element sender = doc.createElement("sender");
+                sender.appendChild(doc.createTextNode(message.getSender().getName()));
+                messageElement.appendChild(sender);
+
+                Element receiver = doc.createElement("receiver");
+                receiver.appendChild(doc.createTextNode(message.getReceiver().getName()));
+                messageElement.appendChild(receiver);
+
+                Element content = doc.createElement("content");
+                content.appendChild(doc.createTextNode(message.getContent()));
+                messageElement.appendChild(content);
+
+                Element timestamp = doc.createElement("timestamp");
+                timestamp.appendChild(doc.createTextNode(message.getTimestamp().format(formatter)));
+                messageElement.appendChild(timestamp);
+
+                rootElement.appendChild(messageElement);
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(filePath));
+            transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();
         }
