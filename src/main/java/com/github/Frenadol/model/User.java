@@ -1,3 +1,4 @@
+// User.java
 package com.github.Frenadol.model;
 
 import java.util.ArrayList;
@@ -7,22 +8,19 @@ import java.util.Objects;
 public class User {
     private String name;
     private String password;
-    private byte[] ProfileImage;
+    private byte[] profileImage;
     private List<User> contacts;
 
     public User(String name, String password, byte[] profileImage, List<User> contacts) {
         this.name = name;
         this.password = password;
-        ProfileImage = profileImage;
+        this.profileImage = profileImage;
         this.contacts = contacts != null ? contacts : new ArrayList<>();
     }
 
-    public User(String name, byte[] profileImage) {
+    public User(String name, byte[] password) {
         this.name = name;
-        ProfileImage = profileImage;
-    }
-
-    public User() {
+        this.password = new String(password);
         this.contacts = new ArrayList<>();
     }
 
@@ -35,18 +33,14 @@ public class User {
     }
 
     public byte[] getProfileImage() {
-        return ProfileImage;
+        return profileImage;
     }
 
     public List<User> getContacts() {
-        if (contacts==null){
-            contacts= new ArrayList<>();
+        if (contacts == null) {
+            contacts = new ArrayList<>();
         }
         return contacts;
-    }
-
-    public byte[] getProfileImagen() {
-        return ProfileImage;
     }
 
     public void setName(String name) {
@@ -56,8 +50,9 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public void setProfileImage(byte[] profileImage) {
-        ProfileImage = profileImage;
+        this.profileImage = profileImage;
     }
 
     public void setContacts(List<User> contacts) {
@@ -76,12 +71,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(ProfileImage, user.ProfileImage);
+        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(profileImage, user.profileImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password, ProfileImage);
+        return Objects.hash(name, password, profileImage);
     }
 
     @Override
@@ -89,9 +84,7 @@ public class User {
         return "========== Informacion del usuario ==========\n" +
                 "Name          : " + name + "\n" +
                 "Password      : " + password + "\n" +
-                "Profile Image : " + ProfileImage + "\n" +
+                "Profile Image : " + profileImage + "\n" +
                 "================================";
     }
-
-
 }

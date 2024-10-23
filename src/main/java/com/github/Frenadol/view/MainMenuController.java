@@ -1,3 +1,4 @@
+// MainMenuController.java
 package com.github.Frenadol.view;
 
 import com.github.Frenadol.model.User;
@@ -45,11 +46,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button addContactButton;
 
-
     String filePath = "UsersData.xml";
-
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
@@ -72,17 +69,17 @@ public class MainMenuController implements Initializable {
                 return new SimpleObjectProperty<>(imageView);
             }
         });
-        contactNameColumn.setCellValueFactory(cellData-> new SimpleStringProperty(cellData.getValue().getName()));
-        contactProfileColumn.setCellValueFactory(cellData->{
-            byte[] visualData=cellData.getValue().getProfileImage();
-            if(visualData!= null && visualData.length>0){
-                ByteArrayInputStream bis= new ByteArrayInputStream(visualData);
-                Image image= new Image(bis);
-                ImageView imageView= new ImageView(image);
+        contactNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        contactProfileColumn.setCellValueFactory(cellData -> {
+            byte[] visualData = cellData.getValue().getProfileImage();
+            if (visualData != null && visualData.length > 0) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
+                Image image = new Image(bis);
+                ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(120);
                 return new SimpleObjectProperty<>(imageView);
-            }else{
+            } else {
                 ImageView imageView = new ImageView();
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(100);
@@ -90,10 +87,10 @@ public class MainMenuController implements Initializable {
             }
         });
 
-
         User currentUser = SessionManager.getInstance().getCurrentUser();
         if (currentUser != null) {
             NameUser.setText(currentUser.getName());
+            loadContactsForCurrentUser();
         }
     }
 
@@ -125,7 +122,6 @@ public class MainMenuController implements Initializable {
                 if (currentUser != null && !currentUser.getContacts().contains(selectedContact)) {
                     currentUser.addContactToList(selectedContact);
 
-
                     List<User> users = XmlReader.getUsersFromXML(filePath);
                     if (users != null) {
                         for (User user : users) {
@@ -135,15 +131,7 @@ public class MainMenuController implements Initializable {
                             }
                         }
 
-                        // Limpiar contraseñas antes de guardar
-                        for (User user : users) {
-                            user.setPassword(null);
-                            for (User contact : user.getContacts()) {
-                                contact.setPassword(null);
-                            }
-                        }
-
-                        // Guardar los cambios en el XML
+                        // Guardar los cambios en el XML sin limpiar las contraseñas
                         XmlReader.saveUsersToXML(users, filePath);
                     }
 
@@ -160,15 +148,20 @@ public class MainMenuController implements Initializable {
             showAlert("Por favor, selecciona un usuario para agregar como contacto.");
         }
     }
-private void loadContactsForCurrentUser(){
-        User currentUser= SessionManager.getInstance().getCurrentUser();
-        if(currentUser!=null){
-            contactList= FXCollections.observableArrayList(currentUser.getContacts());
-            contactsTable.setItems(contactList);
+
+    private void loadContactsForCurrentUser() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equals(currentUser.getName())) {
+                    contactList = FXCollections.observableArrayList(user.getContacts());
+                    contactsTable.setItems(contactList);
+                    break;
+                }
+            }
         }
-}
-
-
+    }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
