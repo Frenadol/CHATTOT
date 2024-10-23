@@ -7,6 +7,16 @@ public class SessionManager {
     private User currentUser;
 
     private SessionManager() {}
+    private User selectedUser;
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User user) {
+        this.selectedUser = user;
+    }
+
 
     public static SessionManager getInstance() {
         if (instance == null) {

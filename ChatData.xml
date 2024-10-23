@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <messages>
-
+    <message>
+        <sender>ILLO1</sender>
+        <receiver>ILLO2</receiver>
+        <content>IO PUTA</content>
+        <timestamp>2024-10-23T20:13:51.6300018</timestamp>
+    </message>
 </messages>

@@ -190,16 +190,6 @@ public class XmlReader {
 
     public static void saveMessagesToXML(List<Message> messages, String filePath) {
         try {
-            File xmlFile = new File(filePath);
-            if (xmlFile.exists()) {
-                // Si el archivo existe, no lo crearemos de nuevo
-                System.out.println("El archivo " + filePath + " ya existe. Se sobreescribirá.");
-            } else {
-                // Si el archivo no existe, lo crearemos
-                xmlFile.createNewFile();
-                System.out.println("Se ha creado el archivo " + filePath);
-            }
-
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
@@ -233,7 +223,7 @@ public class XmlReader {
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(xmlFile);
+            StreamResult result = new StreamResult(new File(filePath));
             transformer.transform(source, result);
         } catch (Exception e) {
             e.printStackTrace();

@@ -172,9 +172,11 @@ public class MainMenuController implements Initializable {
         try {
             User selectedContact = contactsTable.getSelectionModel().getSelectedItem();
             if (selectedContact != null) {
-                SessionManager.getInstance().setCurrentUser(selectedContact);
+                SessionManager.getInstance().setSelectedUser(selectedContact);
                 showAlert("Chat iniciado con " + selectedContact.getName());
                 App.setRoot("Chat");
+
+
             } else {
                 showAlert("Por favor, selecciona un contacto para chatear.");
             }
