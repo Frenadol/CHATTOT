@@ -44,10 +44,6 @@ public class User {
         return contacts;
     }
 
-
-
-
-
     public void setName(String name) {
         this.name = name;
     }
@@ -71,23 +67,17 @@ public class User {
         contacts.add(contact);
     }
 
-    /**private void sendMessage(User receiver, String content) {
-        Message message = new Message(this, receiver, content);
-        this.sentMessages.add(message);
-        receiver.getReceivedMessages().add(message);
-    }**/
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) && Objects.equals(password, user.password) && Objects.deepEquals(profileImage, user.profileImage);
+        return Objects.equals(name, user.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, password, profileImage);
+        return Objects.hash(name);
     }
 
     @Override

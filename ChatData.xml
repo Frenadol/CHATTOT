@@ -1,9 +1,226 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <messages>
+                                
+    
+    
+    
+    
+    
+    
     <message>
-        <sender>ILLO1</sender>
-        <receiver>ILLO2</receiver>
-        <content>IO PUTA</content>
-        <timestamp>2024-10-23T20:13:51.6300018</timestamp>
+                                                                
+        
+        
+        
+        
+        
+        
+        <sender>Manolo</sender>
+                                                                
+        
+        
+        
+        
+        
+        
+        <receiver>Pedro</receiver>
+                                                                
+        
+        
+        
+        
+        
+        
+        <content>xffasafds</content>
+                                                                
+        
+        
+        
+        
+        
+        
+        <timestamp>2024-10-23T20:40:02.7337157</timestamp>
+                                                            
+    
+    
+    
+    
+    
+    
+    </message>
+                            
+    
+    
+    
+    
+    
+    
+    <message>
+                                                        
+        
+        
+        
+        
+        
+        <sender>Manolo</sender>
+                                                        
+        
+        
+        
+        
+        
+        <receiver>Pedro</receiver>
+                                                        
+        
+        
+        
+        
+        
+        <content>sdfsdfsa</content>
+                                                        
+        
+        
+        
+        
+        
+        <timestamp>2024-10-23T20:48:12.808317500</timestamp>
+                                                    
+    
+    
+    
+    
+    
+    </message>
+                        
+    
+    
+    
+    
+    
+    <message>
+                                                
+        
+        
+        
+        
+        <sender>Manolo</sender>
+                                                
+        
+        
+        
+        
+        <receiver>Pedro</receiver>
+                                                
+        
+        
+        
+        
+        <content>axerfaasdf</content>
+                                                
+        
+        
+        
+        
+        <timestamp>2024-10-23T20:48:18.662346900</timestamp>
+                                            
+    
+    
+    
+    
+    </message>
+                    
+    
+    
+    
+    
+    <message>
+                                        
+        
+        
+        
+        <sender>Manolo</sender>
+                                        
+        
+        
+        
+        <receiver>Pedro</receiver>
+                                        
+        
+        
+        
+        <content>olaaaaa</content>
+                                        
+        
+        
+        
+        <timestamp>2024-10-23T20:50:10.721089600</timestamp>
+                                    
+    
+    
+    
+    </message>
+                
+    
+    
+    
+    <message>
+                                
+        
+        
+        <sender>Manolo</sender>
+                                
+        
+        
+        <receiver>Pedro</receiver>
+                                
+        
+        
+        <content>asdfasf</content>
+                                
+        
+        
+        <timestamp>2024-10-23T20:53:10.742008700</timestamp>
+                            
+    
+    
+    </message>
+            
+    
+    
+    <message>
+                        
+        
+        <sender>Pedro</sender>
+                        
+        
+        <receiver>Manolo</receiver>
+                        
+        
+        <content>ola</content>
+                        
+        
+        <timestamp>2024-10-23T21:11:10.491113500</timestamp>
+                    
+    
+    </message>
+        
+    
+    <message>
+                
+        <sender>Manolo</sender>
+                
+        <receiver>Pedro</receiver>
+                
+        <content>si</content>
+                
+        <timestamp>2024-10-23T21:18:44.001761900</timestamp>
+            
+    </message>
+    
+    <message>
+        <sender>Manolo</sender>
+        <receiver>Pedro</receiver>
+        <content>si</content>
+        <timestamp>2024-10-23T21:18:52.109633700</timestamp>
     </message>
 </messages>
