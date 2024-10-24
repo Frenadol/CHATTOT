@@ -56,6 +56,7 @@ public class ChatController implements Initializable {
         logger.log(Level.INFO, "Selected User: {0}", selectedUser);
 
         messageList.setCellFactory(listView -> new MessageListCell());
+
         if (selectedUser != null) {
             displayMessages();
         } else {
