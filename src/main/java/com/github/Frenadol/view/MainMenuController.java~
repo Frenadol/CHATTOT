@@ -170,28 +170,24 @@ public class MainMenuController implements Initializable {
     @FXML
     private void chattedWithContact() {
         try {
-            User selectedContact = contactsTable.getSelectionModel().getSelectedItem();
-            User currentUser = SessionManager.getInstance().getCurrentUser();
+            User selectedContact = contactsTable.getSelectionModel().getSelectedItem(); // El contacto seleccionado
+            User currentUser = SessionManager.getInstance().getCurrentUser(); // El usuario actual
 
-            if (selectedContact != null) {
-                // Verificar si el usuario actual está en la lista de contactos del contacto seleccionado
-                List<User> users = XmlReader.getUsersFromXML(filePath); // Obtener la lista de usuarios
-                for (User user : users) {
-                    if (user.getName().equals(selectedContact.getName())) {
-                        // Si el contacto seleccionado no tiene al usuario actual en su lista de contactos
-                        if (!user.getContacts().contains(currentUser)) {
-                            showAlert("No puedes iniciar el chat porque " + selectedContact.getName() + " no te tiene agregado como contacto.");
-                            return; // Salir del método
-                        }
-                        break;
-                    }
+            if (selectedContact != null && currentUser != null) {
+                // Verificar si el usuario actual tiene al contacto seleccionado en su lista de contactos
+                boolean currentUserHasContact = currentUser.getContacts().contains(selectedContact);
+                // Verificar si el contacto seleccionado tiene al usuario actual en su lista de contactos
+                boolean contactHasCurrentUser = selectedContact.getContacts().contains(currentUser);
+
+                if (currentUserHasContact && contactHasCurrentUser) {
+                    // Si ambos se tienen mutuamente, permitir el chat
+                    SessionManager.getInstance().setSelectedUser(selectedContact);
+                    showAlert("Chat iniciado con " + selectedContact.getName());
+                    App.setRoot("Chat");
+                } else {
+                    // Si no se tienen mutuamente agregados, mostrar un mensaje de error
+                    showAlert("No puedes chatear con " + selectedContact.getName() + " porque no se tienen agregados mutuamente.");
                 }
-
-                // Si ambos usuarios tienen a cada uno agregado, iniciar el chat
-                SessionManager.getInstance().setSelectedUser(selectedContact);
-                showAlert("Chat iniciado con " + selectedContact.getName());
-                App.setRoot("Chat");
-
             } else {
                 showAlert("Por favor, selecciona un contacto para chatear.");
             }
@@ -199,6 +195,8 @@ public class MainMenuController implements Initializable {
             showAlert("Error al iniciar el chat: " + e.getMessage());
         }
     }
+
+
 
 
     private void showAlert(String message) {
