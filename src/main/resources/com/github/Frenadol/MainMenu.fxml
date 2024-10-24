@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
    <children>
       <Text layoutX="502.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" wrappingWidth="249.33333333333348" />
       <TableView fx:id="usersTable" editable="true" layoutX="502.0" layoutY="86.0" prefHeight="401.0" prefWidth="257.0">
@@ -18,7 +18,7 @@
         </columns>
       </TableView>
       <Button fx:id="addContactButton" layoutX="587.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#confirmAndAddContact" text="Agregar contacto" />
-      <Label fx:id="NameUser" layoutX="23.0" layoutY="20.0" prefHeight="25.0" prefWidth="97.0" text="Texto">
+      <Label fx:id="NameUser" layoutX="161.0" layoutY="22.0" prefHeight="25.0" prefWidth="97.0" text="Texto">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
@@ -30,5 +30,6 @@
       </TableView>
       <Text layoutX="247.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios agregados:" wrappingWidth="249.33333333333348" />
       <Button fx:id="sendMessageButton" layoutX="346.0" layoutY="37.0" mnemonicParsing="false" onAction="#chattedWithContact" text="Chatear" />
+      <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Chattot" wrappingWidth="110.90625" />
    </children>
 </AnchorPane>

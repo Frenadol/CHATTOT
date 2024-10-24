@@ -41,7 +41,6 @@ public class ChatController implements Initializable {
     private User currentUser;
     private User selectedUser;
 
-    private static final String usersPathChat = "UsersData.xml";
     private static final String filePathChat = "ChatData.xml";
 
     private static final Logger logger = Logger.getLogger(ChatController.class.getName());
@@ -56,6 +55,7 @@ public class ChatController implements Initializable {
         logger.log(Level.INFO, "Current User: {0}", currentUser);
         logger.log(Level.INFO, "Selected User: {0}", selectedUser);
 
+        messageList.setCellFactory(listView -> new MessageListCell());
         if (selectedUser != null) {
             displayMessages();
         } else {
@@ -88,9 +88,10 @@ public class ChatController implements Initializable {
             }
 
             for (Message message : messages) {
-                if ((message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) ||
-                        (message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
-                    messageList.getItems().add(message.getContent());
+                if (message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) {
+                    messageList.getItems().add("To " + selectedUser.getName() + ": " + message.getContent());
+                } else if ((message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
+                    messageList.getItems().add("From " + selectedUser.getName() + ": " + message.getContent());
                 }
             }
         } catch (Exception e) {
