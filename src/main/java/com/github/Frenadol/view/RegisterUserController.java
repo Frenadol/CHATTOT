@@ -1,5 +1,6 @@
 package com.github.Frenadol.view;
 
+import com.github.Frenadol.App;
 import com.github.Frenadol.utils.Security;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -83,6 +84,7 @@ public class RegisterUserController {
 
             String message = "Usuario registrado con éxito!";
             showAlert(message);
+            App.setRoot("primary");
         } catch (Exception e) {
             showAlert("Error al registrar el usuario: " + e.getMessage());
         }

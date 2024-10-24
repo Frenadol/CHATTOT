@@ -1,42 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <messages>
-            
-    
-    
-    <message>
-                        
-        
-        <sender>Pedro</sender>
-                        
-        
-        <receiver>Manolo</receiver>
-                        
-        
-        <content>paco</content>
-                        
-        
-        <timestamp>2024-10-24T12:52:10.689087500</timestamp>
-                    
-    
-    </message>
-        
-    
-    <message>
-                
-        <sender>Pedro</sender>
-                
-        <receiver>Manolo</receiver>
-                
-        <content>paco</content>
-                
-        <timestamp>2024-10-24T12:52:13.755989400</timestamp>
-            
-    </message>
-    
-    <message>
-        <sender>Pedro</sender>
-        <receiver>Manolo</receiver>
-        <content>poya</content>
-        <timestamp>2024-10-24T12:52:17.632017900</timestamp>
-    </message>
+  
 </messages>
