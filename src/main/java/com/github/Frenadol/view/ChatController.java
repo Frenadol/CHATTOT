@@ -20,6 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class ChatController implements Initializable {
     private User selectedUser;
 
     private static final String filePathChat = "ChatData.xml";
+    private static final String filePathChatTxt = "ChatData.txt"; // Ruta del archivo de texto
 
     private static final Logger logger = Logger.getLogger(ChatController.class.getName());
 
@@ -56,7 +58,6 @@ public class ChatController implements Initializable {
         logger.log(Level.INFO, "Selected User: {0}", selectedUser);
 
         messageList.setCellFactory(listView -> new MessageListCell());
-
         if (selectedUser != null) {
             displayMessages();
         } else {
@@ -155,6 +156,14 @@ public class ChatController implements Initializable {
         transformer.transform(source, result);
     }
 
+    // Nuevo método para agregar el mensaje al archivo de texto
+    private void addMessageToTxt(Message newMessage, File txtFile) throws IOException {
+        try (FileWriter writer = new FileWriter(txtFile, true)) {
+            writer.write("[" + newMessage.getTimestamp() + "] " + newMessage.getSender().getName() +
+                    " to " + newMessage.getReceiver().getName() + ": " + newMessage.getContent() + "\n");
+        }
+    }
+
     @FXML
     private void sendMessage() {
         String content = messageField.getText();
@@ -165,6 +174,9 @@ public class ChatController implements Initializable {
             try {
                 // Add the new message to the XML file
                 addMessageToXML(newMessage, new File(filePathChat));
+
+                // Add the new message to the text file
+                addMessageToTxt(newMessage, new File(filePathChatTxt));
 
                 // Append the new message to the ListView
                 messageList.getItems().add("To " + selectedUser.getName() + ": " + content);
@@ -178,6 +190,7 @@ public class ChatController implements Initializable {
                 alert.showAndWait();
             }
         } else {
+            // Optionally, show an error message if content is null or empty
         }
     }
 }
