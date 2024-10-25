@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.w3c.dom.*;
@@ -32,6 +33,8 @@ public class RegisterUserController {
     private PasswordField textPassword;
     @FXML
     private Button usersRegister;
+    @FXML
+    private Button BackButton;
     @FXML
     private ImageView imageView;
 
@@ -195,10 +198,20 @@ public class RegisterUserController {
             try {
                 InputStream is = new FileInputStream(imageFile);
                 Image image = new Image(is);
+                applyCircularClip(imageView);
                 imageView.setImage(image); // Mostrar la imagen en el ImageView
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void goBack() throws IOException {
+        App.setRoot("Primary");
+    }
+
+    private void applyCircularClip(ImageView imageView) {
+        Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2, Math.min(imageView.getFitWidth(), imageView.getFitHeight()) / 2);
+        imageView.setClip(clip);
     }
 }

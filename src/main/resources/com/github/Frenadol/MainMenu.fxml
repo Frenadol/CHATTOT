@@ -4,32 +4,34 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
    <children>
-      <Text layoutX="502.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" wrappingWidth="249.33333333333348" />
-      <TableView fx:id="usersTable" editable="true" layoutX="502.0" layoutY="86.0" prefHeight="401.0" prefWidth="257.0">
+      <Text layoutX="284.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" wrappingWidth="249.33333333333348" AnchorPane.topAnchor="54.0" />
+      <TableView fx:id="usersTable" editable="true" layoutX="284.0" layoutY="71.0" prefHeight="401.0" prefWidth="257.0">
         <columns>
           <TableColumn fx:id="nameUserColumn" prefWidth="122.66668701171875" text="Usuarios disponibles:" />
             <TableColumn fx:id="imageProfileColumn" prefWidth="133.33331298828125" text="Imagen de perfil:" />
         </columns>
       </TableView>
-      <Button fx:id="addContactButton" layoutX="587.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#confirmAndAddContact" text="Agregar contacto" />
-      <Label fx:id="NameUser" layoutX="161.0" layoutY="22.0" prefHeight="25.0" prefWidth="97.0" text="Texto">
+      <Button fx:id="addContactButton" layoutX="350.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#confirmAndAddContact" text="Agregar contacto" AnchorPane.topAnchor="22.0" />
+      <Label fx:id="NameUser" layoutX="542.0" layoutY="20.0" prefHeight="30.0" prefWidth="95.0" text="Texto" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <TableView fx:id="contactsTable" layoutX="259.0" layoutY="87.0" prefHeight="401.0" prefWidth="225.0">
+      <TableView fx:id="contactsTable" layoutX="17.0" layoutY="71.0" prefHeight="411.0" prefWidth="243.0">
         <columns>
-          <TableColumn fx:id="contactNameColumn" prefWidth="123.33334350585938" text="Usuarios agregados:" />
-          <TableColumn fx:id="contactProfileColumn" prefWidth="101.33331298828125" text="Imagen de perfil:" />
+          <TableColumn fx:id="contactNameColumn" prefWidth="121.99999237060547" text="Usuarios agregados:" />
+          <TableColumn fx:id="contactProfileColumn" prefWidth="122.00001525878906" text="Imagen de perfil:" />
         </columns>
       </TableView>
-      <Text layoutX="247.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios agregados:" wrappingWidth="249.33333333333348" />
-      <Button fx:id="sendMessageButton" layoutX="346.0" layoutY="37.0" mnemonicParsing="false" onAction="#chattedWithContact" text="Chatear" />
-      <Text layoutX="25.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Chattot" wrappingWidth="110.90625" />
+      <Text layoutX="14.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios agregados:" wrappingWidth="249.33333333333348" AnchorPane.topAnchor="54.0" />
+      <Button fx:id="sendMessageButton" layoutX="122.0" layoutY="22.0" mnemonicParsing="false" onAction="#chattedWithContact" text="Chatear" AnchorPane.topAnchor="22.0" />
+      <Text layoutX="535.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Chattot" wrappingWidth="110.90625" AnchorPane.topAnchor="6.0" />
+       <ImageView fx:id="userImage" fitHeight="120" fitWidth="120" layoutX="648.0" layoutY="2.0" AnchorPane.topAnchor="2.0" />
    </children>
 </AnchorPane>

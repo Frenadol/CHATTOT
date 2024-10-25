@@ -7,14 +7,14 @@
 
 <AnchorPane prefHeight="301.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.PrimaryController">
    <children>
-      <Label layoutX="125.0" layoutY="104.0" text="Bienvenido a Chattot">
+      <Label layoutX="127.0" layoutY="106.0" text="Bienvenido a Chattot">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="registerButtom" layoutX="262.0" layoutY="175.0" onAction="#switchToRegister" text="Crear Cuenta" />
-      <Button fx:id="inicieButtom" layoutX="95.0" layoutY="175.0" onAction="#switchToInicie" text="Iniciar Sesion" />
-      <Label layoutX="124.0" layoutY="33.0" text="CHATTOT">
+      <Button fx:id="registerButtom" layoutX="265.0" layoutY="186.0" onAction="#switchToRegister" prefHeight="38.0" prefWidth="99.0" text="Crear Cuenta" />
+      <Button fx:id="inicieButtom" layoutX="77.0" layoutY="186.0" onAction="#switchToInicie" prefHeight="38.0" prefWidth="99.0" text="Iniciar Sesion" />
+      <Label layoutX="124.0" layoutY="38.0" text="CHATTOT">
          <font>
             <Font name="Constantia" size="40.0" />
          </font>
