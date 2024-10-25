@@ -1,5 +1,6 @@
 package com.github.Frenadol.view;
 
+import com.github.Frenadol.App;
 import com.github.Frenadol.model.User;
 import com.github.Frenadol.model.Message;
 import com.github.Frenadol.utils.XmlReader;
@@ -38,6 +39,8 @@ public class ChatController implements Initializable {
     private TextField messageField;
     @FXML
     private Button sendButton;
+    @FXML
+    private Button BackButton;
 
     private User currentUser;
     private User selectedUser;
@@ -48,6 +51,10 @@ public class ChatController implements Initializable {
     private static final Logger logger = Logger.getLogger(ChatController.class.getName());
 
     SessionManager sessionManager = SessionManager.getInstance();
+
+    public void goBack() throws IOException {
+        App.setRoot("MainMenu");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -190,7 +197,6 @@ public class ChatController implements Initializable {
                 alert.showAndWait();
             }
         } else {
-            // Optionally, show an error message if content is null or empty
         }
     }
 }
