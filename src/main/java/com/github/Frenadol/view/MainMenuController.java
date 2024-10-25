@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
@@ -33,7 +34,6 @@ public class MainMenuController implements Initializable {
     private TableColumn<User, String> nameUserColumn;
     @FXML
     private TableColumn<User, ImageView> imageProfileColumn;
-    private ObservableList<User> userList = FXCollections.observableArrayList();
     @FXML
     private Label NameUser;
     @FXML
@@ -43,18 +43,19 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<User, ImageView> contactProfileColumn;
     private ObservableList<User> contactList = FXCollections.observableArrayList();
-
     @FXML
     private Button addContactButton;
     @FXML
     private Button sendMessageButton;
 
+    private ObservableList<User> userList = FXCollections.observableArrayList();
 
     String filePath = "UsersData.xml";
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
         ListUsers();
+        loadCurrentUserImage();
 
         nameUserColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         imageProfileColumn.setCellValueFactory(cellData -> {
@@ -65,11 +66,13 @@ public class MainMenuController implements Initializable {
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(100);
+                applyCircularClip(imageView);
                 return new SimpleObjectProperty<>(imageView);
             } else {
                 ImageView imageView = new ImageView();
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(100);
+                applyCircularClip(imageView);
                 return new SimpleObjectProperty<>(imageView);
             }
         });
@@ -82,11 +85,13 @@ public class MainMenuController implements Initializable {
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(120);
+                applyCircularClip(imageView);
                 return new SimpleObjectProperty<>(imageView);
             } else {
                 ImageView imageView = new ImageView();
                 imageView.setFitWidth(120);
                 imageView.setFitHeight(100);
+                applyCircularClip(imageView);
                 return new SimpleObjectProperty<>(imageView);
             }
         });
@@ -98,7 +103,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
-    public void ListUsers() {
+    private void ListUsers() {
         List<User> users = XmlReader.getUsersFromXML(filePath);
         if (users.isEmpty()) {
             System.out.println("No users found in XML.");
@@ -110,7 +115,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    public void confirmAndAddContact() {
+    private void confirmAndAddContact() {
         User selectedContact = usersTable.getSelectionModel().getSelectedItem();
 
         if (selectedContact != null) {
@@ -214,9 +219,29 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    private void loadCurrentUserImage() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equals(currentUser.getName())) {
+                    byte[] visualData = user.getProfileImage();
+                    if (visualData != null && visualData.length > 0) {
+                        ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
+                        Image image = new Image(bis);
+                        userImage.setImage(image);
+                        applyCircularClip(userImage);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
-
-
+    private void applyCircularClip(ImageView imageView) {
+        Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2, Math.min(imageView.getFitWidth(), imageView.getFitHeight()) / 2);
+        imageView.setClip(clip);
+    }
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

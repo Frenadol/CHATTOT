@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <messages>
+            
+    
     <message>
+                        
+        
         <sender>6</sender>
+                        
+        
         <receiver>5</receiver>
+                        
+        
         <content>hhhh</content>
+                        
+        
         <timestamp>2024-10-24T18:48:28.568119700</timestamp>
+                    
+    
+    </message>
+        
+    
+    <message>
+                
+        <sender>Pedro</sender>
+                
+        <receiver>Manolo</receiver>
+                
+        <content>hola</content>
+                
+        <timestamp>2024-10-25T11:29:31.322336500</timestamp>
+            
+    </message>
+    
+    <message>
+        <sender>Pedro</sender>
+        <receiver>Manolo</receiver>
+        <content>si</content>
+        <timestamp>2024-10-25T11:29:45.835750800</timestamp>
     </message>
 </messages>
-
-  
-
-

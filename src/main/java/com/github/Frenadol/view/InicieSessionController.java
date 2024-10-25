@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,6 +27,8 @@ public class InicieSessionController {
     private PasswordField textPassword;
     @FXML
     private Button UsersSession;
+    @FXML
+    private Button Back;
 
     private static final String USERS_FILE = "UsersData.xml";
 
@@ -105,6 +108,10 @@ public class InicieSessionController {
         }
 
         return hexString.toString();
+    }
+
+    public void goBack() throws IOException {
+        App.setRoot("Primary");
     }
 
     private void showAlert(String message) {
