@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.RegisterUserController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="540.0" styleClass="RegisterUser" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.RegisterUserController">
     <children>
         <Text layoutX="38.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE DE USUARIO" AnchorPane.leftAnchor="38.0" />
         <Text layoutX="38.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTRASEÑA" AnchorPane.leftAnchor="38.0" />

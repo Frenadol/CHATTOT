@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="301.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.PrimaryController">
+<AnchorPane prefHeight="301.0" prefWidth="439.0" styleClass="Primary" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.PrimaryController">
    <children>
       <Label layoutX="127.0" layoutY="106.0" text="Bienvenido a Chattot">
          <font>

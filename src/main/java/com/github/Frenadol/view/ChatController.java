@@ -63,7 +63,6 @@ public class ChatController implements Initializable {
 
         logger.log(Level.INFO, "Current User: {0}", currentUser);
         logger.log(Level.INFO, "Selected User: {0}", selectedUser);
-
         messageList.setCellFactory(listView -> new MessageListCell());
         if (selectedUser != null) {
             displayMessages();
@@ -81,6 +80,17 @@ public class ChatController implements Initializable {
                 alert.setTitle("Error");
                 alert.setHeaderText("No se ha seleccionado un usuario");
                 alert.showAndWait();
+            }
+        });
+
+        // Add event handler for Enter key press
+        messageField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    sendMessage();
+                    break;
+                default:
+                    break;
             }
         });
     }
