@@ -1,4 +1,3 @@
-// MainMenuController.java
 package com.github.Frenadol.view;
 
 import com.github.Frenadol.App;
@@ -18,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -47,10 +47,16 @@ public class MainMenuController implements Initializable {
     private Button addContactButton;
     @FXML
     private Button sendMessageButton;
+    @FXML
+    private Button BackButton;
 
     private ObservableList<User> userList = FXCollections.observableArrayList();
 
     String filePath = "UsersData.xml";
+
+    public void goBack() throws IOException {
+        App.setRoot("Primary");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resources) {
@@ -105,11 +111,19 @@ public class MainMenuController implements Initializable {
 
     private void ListUsers() {
         List<User> users = XmlReader.getUsersFromXML(filePath);
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+
         if (users.isEmpty()) {
             System.out.println("No users found in XML.");
         } else {
             System.out.println("Users loaded: " + users.size());
         }
+
+        // Filter out the current user
+        if (currentUser != null) {
+            users.removeIf(user -> user.getName().equals(currentUser.getName()));
+        }
+
         this.userList = FXCollections.observableArrayList(users);
         usersTable.setItems(userList);
     }
@@ -164,7 +178,8 @@ public class MainMenuController implements Initializable {
             List<User> users = XmlReader.getUsersFromXML(filePath);
             for (User user : users) {
                 if (user.getName().equals(currentUser.getName())) {
-                    contactList = FXCollections.observableArrayList(user.getContacts());
+                    // Add all contacts to the list
+                    contactList.addAll(user.getContacts());
                     contactsTable.setItems(contactList);
                     break;
                 }

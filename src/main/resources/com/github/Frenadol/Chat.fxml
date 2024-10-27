@@ -6,19 +6,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane fx:id="chatDialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
+<DialogPane fx:id="chatDialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" styleClass="Chat" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
     <header>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="480.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="480.0" styleClass="Chat" stylesheets="@../../../Background.css">
          <children>
-            <ListView fx:id="messageList" prefHeight="200.0" prefWidth="480.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ListView fx:id="messageList" prefHeight="200.0" prefWidth="480.0" styleClass="List" stylesheets="@../../../Background.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
     </header>
     <content>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" styleClass="Chat" stylesheets="@../../../Background.css">
          <children>
             <Button fx:id="sendButton" layoutX="387.0" layoutY="11.0" onAction="#sendMessage" text="Send" AnchorPane.rightAnchor="50.333333333333314" />
             <TextField fx:id="messageField" layoutX="16.0" layoutY="11.0" prefHeight="25.0" prefWidth="379.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="95.0" />
-            <Button fx:id="BackButton" layoutX="425.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="25.0" prefWidth="47.0" text="Back" />
+            <Button fx:id="BackButton" layoutX="442.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="25.0" prefWidth="47.0" text="Back" AnchorPane.rightAnchor="-9.333333333333314" />
          </children></AnchorPane>
     </content>
     <expandableContent>
