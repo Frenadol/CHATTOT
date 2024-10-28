@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MainMenuController implements Initializable {
     @FXML
@@ -119,9 +120,10 @@ public class MainMenuController implements Initializable {
             System.out.println("Users loaded: " + users.size());
         }
 
-        // Filter out the current user
+        // Filter out the current user and their contacts
         if (currentUser != null) {
-            users.removeIf(user -> user.getName().equals(currentUser.getName()));
+            List<User> contacts = currentUser.getContacts();
+            users.removeIf(user -> user.getName().equals(currentUser.getName()) || contacts.stream().anyMatch(contact -> contact.getName().equals(user.getName())));
         }
 
         this.userList = FXCollections.observableArrayList(users);
@@ -133,6 +135,13 @@ public class MainMenuController implements Initializable {
         User selectedContact = usersTable.getSelectionModel().getSelectedItem();
 
         if (selectedContact != null) {
+            User currentUser = SessionManager.getInstance().getCurrentUser();
+
+            if (currentUser != null && currentUser.getContacts().contains(selectedContact)) {
+                showAlert("Este contacto ya está en tu lista.");
+                return;
+            }
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmación de adición");
             alert.setHeaderText("Estás a punto de agregar a " + selectedContact.getName() + " como contacto");
@@ -140,8 +149,6 @@ public class MainMenuController implements Initializable {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                User currentUser = SessionManager.getInstance().getCurrentUser();
-
                 if (currentUser != null && !currentUser.getContacts().contains(selectedContact)) {
                     currentUser.addContactToList(selectedContact);
 
@@ -164,6 +171,10 @@ public class MainMenuController implements Initializable {
 
                     // Cargar y mostrar los contactos actualizados
                     loadContactsForCurrentUser();
+
+                    // Remover el usuario agregado de la lista de usuarios y actualizar la tabla
+                    userList.remove(selectedContact);
+                    usersTable.setItems(userList);
                 } else {
                     showAlert("Este contacto ya está en tu lista.");
                 }
@@ -179,7 +190,7 @@ public class MainMenuController implements Initializable {
             List<User> users = XmlReader.getUsersFromXML(filePath);
             for (User user : users) {
                 if (user.getName().equals(currentUser.getName())) {
-                    // Agregar todos los contactos a la lista de contactos
+                    // Clear the existing contact list and add all contacts
                     contactList.clear();
                     contactList.addAll(user.getContacts());
                     contactsTable.setItems(contactList);
