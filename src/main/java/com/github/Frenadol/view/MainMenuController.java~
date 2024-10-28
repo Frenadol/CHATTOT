@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class MainMenuController implements Initializable {
     @FXML
@@ -169,14 +170,14 @@ public class MainMenuController implements Initializable {
             User currentUser = SessionManager.getInstance().getCurrentUser();
 
             if (currentUser != null && currentUser.getContacts().contains(selectedContact)) {
-                showAlert("Este contacto ya está en tu lista.");
+                showAlert("This contact is already in your list.");
                 return;
             }
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmación para Agregar");
-            alert.setHeaderText("Estás a punto de agregar a " + selectedContact.getName() + " como contacto");
-            alert.setContentText("¿Estás seguro de que deseas agregar a este usuario a tus contactos?");
+            alert.setTitle("Confirmation to Add");
+            alert.setHeaderText("You are about to add " + selectedContact.getName() + " as a contact");
+            alert.setContentText("Are you sure you want to add this user to your contacts?");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -200,19 +201,19 @@ public class MainMenuController implements Initializable {
                             XmlReader.saveUsersToXML(users, filePath);
                         }
 
-                        showAlert("Contacto agregado exitosamente.");
+                        showAlert("Contact successfully added.");
 
                         loadContactsForCurrentUser();
 
                         userList.remove(selectedContact);
                         usersTable.setItems(userList);
                     } else {
-                        showAlert("Este contacto ya está en tu lista.");
+                        showAlert("This contact is already in your list.");
                     }
                 }
             }
         } else {
-            showAlert("Por favor selecciona un usuario para agregar como contacto.");
+            showAlert("Please select a user to add as a contact.");
         }
     }
 
@@ -255,103 +256,136 @@ public class MainMenuController implements Initializable {
 
                     if (currentUserHasContact && contactHasCurrentUser) {
                         SessionManager.getInstance().setSelectedUser(updatedSelectedContact);
-                        showAlert("Chat iniciado con " + updatedSelectedContact.getName());
-                        App.setRoot("ChatView");
+                        showAlert("Chat started with " + updatedSelectedContact.getName());
+                        App.setRoot("Chat");
                     } else {
-                        showAlert("No puedes iniciar un chat con " + updatedSelectedContact.getName() + " porque no es tu contacto.");
+                        showAlert("You cannot chat with " + updatedSelectedContact.getName() + " because you do not have each other added as contacts.");
                     }
+                } else {
+                    showAlert("Error: User or selected contact not found.");
                 }
             } else {
-                showAlert("Por favor selecciona un contacto para chatear.");
+                showAlert("Please select a contact to chat with.");
             }
-        } catch (IOException e) {
-            showAlert("Ocurrió un error al iniciar el chat: " + e.getMessage());
+        } catch (Exception e) {
+            showAlert("Error starting chat: " + e.getMessage());
         }
     }
 
     /**
-     * Loads the current user's profile image if available.
+     * Loads the current user's profile image and displays it in the UI.
      */
     private void loadCurrentUserImage() {
         User currentUser = SessionManager.getInstance().getCurrentUser();
         if (currentUser != null) {
-            byte[] visualData = currentUser.getProfileImage();
-            if (visualData != null && visualData.length > 0) {
-                ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
-                Image image = new Image(bis);
-                userImage.setImage(image);
-                userImage.setFitWidth(150);
-                userImage.setFitHeight(150);
-                applyCircularClip(userImage);
-            }
-        }
-    }
-
-    /**
-     * Changes the current user's name after confirmation.
-     */
-    private void changeUserName() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Cambiar Nombre");
-        dialog.setHeaderText("Ingresa el nuevo nombre:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(newName -> {
-            User currentUser = SessionManager.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                currentUser.setName(newName);
-                showAlert("Nombre cambiado exitosamente.");
-                XmlReader.saveUsersToXML(XmlReader.getUsersFromXML(filePath), filePath);
-                loadContactsForCurrentUser();
-                NameUser.setText(currentUser.getName());
-            }
-        });
-    }
-
-    /**
-     * Changes the current user's profile photo after confirmation.
-     */
-    private void changeUserPhoto() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleccionar Foto de Perfil");
-        File file = fileChooser.showOpenDialog(anchorPane.getScene().getWindow());
-
-        if (file != null) {
-            User currentUser = SessionManager.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                try (FileInputStream fis = new FileInputStream(file)) {
-                    byte[] imageData = new byte[(int) file.length()];
-                    fis.read(imageData);
-                    currentUser.setProfileImage(imageData);
-                    showAlert("Foto de perfil cambiada exitosamente.");
-                    loadCurrentUserImage();
-                    XmlReader.saveUsersToXML(XmlReader.getUsersFromXML(filePath), filePath);
-                } catch (IOException e) {
-                    showAlert("Ocurrió un error al cargar la foto: " + e.getMessage());
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equals(currentUser.getName())) {
+                    byte[] visualData = user.getProfileImage();
+                    if (visualData != null && visualData.length > 0) {
+                        ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
+                        Image image = new Image(bis);
+                        userImage.setImage(image);
+                        applyCircularClip(userImage);
+                    }
+                    break;
                 }
             }
         }
     }
 
     /**
-     * Applies a circular clip to an ImageView.
+     * Applies a circular clip to the provided ImageView.
      *
-     * @param imageView the ImageView to clip.
+     * @param imageView the ImageView to which the circular clip will be applied.
      */
     private void applyCircularClip(ImageView imageView) {
-        Circle clip = new Circle(50, 50, 50);
+        Circle clip = new Circle(imageView.getFitWidth() / 2, imageView.getFitHeight() / 2, Math.min(imageView.getFitWidth(), imageView.getFitHeight()) / 2);
         imageView.setClip(clip);
     }
 
     /**
-     * Shows an alert dialog with the given message.
+     * Displays an information alert with the specified message.
      *
      * @param message the message to display in the alert.
      */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Información");
-        alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.showAndWait();
+        alert.show();
+    }
+
+    /**
+     * Opens a dialog to change the current user's name.
+     * Validates that the new name is not empty and is different from the current name.
+     */
+    @FXML
+    private void changeUserName() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            TextInputDialog dialog = new TextInputDialog(currentUser.getName());
+            dialog.setTitle("Change Name");
+            dialog.setHeaderText("Enter the new name for the user:");
+            Optional<String> result = dialog.showAndWait();
+
+            if (result.isPresent() && !result.get().trim().isEmpty()) {
+                String newName = result.get().trim();
+
+                if (newName.equals(currentUser.getName())) {
+                    showAlert("The new name must be different from the current one.");
+                } else {
+                    currentUser.setName(newName);
+                    NameUser.setText(newName);
+                    updateUserInXML(currentUser);
+                    showAlert("Name changed successfully.");
+                }
+            } else {
+                showAlert("The name cannot be empty.");
+            }
+        }
+    }
+
+    /**
+     * Opens a file chooser dialog to select a new user photo,
+     * updates the user's profile image, and saves the changes to the XML file.
+     */
+    @FXML
+    private void changeUserPhoto() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select Image");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
+
+            File file = fileChooser.showOpenDialog(anchorPane.getScene().getWindow());
+            if (file != null) {
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    byte[] imageData = fis.readAllBytes();
+                    currentUser.setProfileImage(imageData);
+                    loadCurrentUserImage();
+                    updateUserInXML(currentUser);
+                    showAlert("User photo changed successfully.");
+                } catch (IOException e) {
+                    showAlert("Error loading image: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates the user information in the XML file with the changes made.
+     *
+     * @param user the user whose information will be updated in the XML file.
+     */
+    private void updateUserInXML(User user) {
+        List<User> users = XmlReader.getUsersFromXML(filePath);
+        for (User u : users) {
+            if (u.getName().equals(user.getName())) {
+                u.setProfileImage(user.getProfileImage());
+                u.setName(user.getName());
+                break;
+            }
+        }
+        XmlReader.saveUsersToXML(users, filePath);
     }
 }

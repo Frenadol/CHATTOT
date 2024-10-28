@@ -13,9 +13,9 @@ public class PrimaryController {
     private Button iniciarBoton; // Cambiado "inicieButtom" a "iniciarBoton"
 
     /**
-     * Switches the view to the registration screen when the register button is clicked.
+     * Cambia la vista a la pantalla de registro cuando se hace clic en el botón de registrar.
      *
-     * @throws IOException if there is an issue loading the registration view.
+     * @throws IOException si hay un problema cargando la vista de registro.
      */
     @FXML
     private void switchToRegister() throws IOException {
@@ -23,9 +23,9 @@ public class PrimaryController {
     }
 
     /**
-     * Switches the view to the login screen when the login button is clicked.
+     * Cambia la vista a la pantalla de inicio de sesión cuando se hace clic en el botón de iniciar sesión.
      *
-     * @throws IOException if there is an issue loading the login view.
+     * @throws IOException si hay un problema cargando la vista de inicio de sesión.
      */
     @FXML
     private void switchToInicie() throws IOException {

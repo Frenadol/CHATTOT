@@ -47,16 +47,29 @@ public class ChatController implements Initializable {
     private User selectedUser;
 
     private static final String filePathChat = "ChatData.xml";
-    private static final String filePathChatTxt = "ChatData.txt"; // Ruta del archivo de texto
+    private static final String filePathChatTxt = "ChatData.txt";
 
     private static final Logger logger = Logger.getLogger(ChatController.class.getName());
 
     SessionManager sessionManager = SessionManager.getInstance();
 
+    /**
+     * Navigates back to the main menu.
+     *
+     * @throws IOException if there is an issue changing the view.
+     */
     public void goBack() throws IOException {
         App.setRoot("MainMenu");
     }
 
+    /**
+     * Initializes the controller.
+     * This method is called when the view is loaded.
+     * It sets up the current user, selected user, and displays messages.
+     *
+     * @param url the URL of the FXML resource.
+     * @param resourceBundle the resource bundle associated with the view.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentUser = sessionManager.getCurrentUser();
@@ -65,26 +78,21 @@ public class ChatController implements Initializable {
         logger.log(Level.INFO, "Current User: {0}", currentUser);
         logger.log(Level.INFO, "Selected User: {0}", selectedUser);
         messageList.setCellFactory(listView -> new MessageListCell());
+
         if (selectedUser != null) {
             displayMessages();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No se ha seleccionado un usuario");
-            alert.showAndWait();
+            showAlert("Error", "No se ha seleccionado un usuario", "Por favor, selecciona un usuario con el que chatear.");
         }
+
         sendButton.setOnAction(event -> {
             if (selectedUser != null) {
                 sendMessage();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("No se ha seleccionado un usuario");
-                alert.showAndWait();
+                showAlert("Error", "No se ha seleccionado un usuario", "Por favor, selecciona un usuario con el que chatear.");
             }
         });
 
-        // Add event handler for Enter key press
         messageField.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case ENTER:
@@ -96,34 +104,38 @@ public class ChatController implements Initializable {
         });
     }
 
+    /**
+     * Displays messages in the message list.
+     * It loads messages from the XML file and shows them in the UI.
+     */
     @FXML
     private void displayMessages() {
         try {
             List<Message> messages = XmlReader.getMessagesFromXML(filePathChat);
 
-            if (messages.isEmpty()) {
-                System.out.println("No messages found in XML.");
-            } else {
-                System.out.println("Messages loaded: " + messages.size());
-            }
-
             for (Message message : messages) {
                 if (message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) {
-                    messageList.getItems().add("Para " + selectedUser.getName() + ": " + message.getContent());
+                    messageList.getItems().add("A " + selectedUser.getName() + ": " + message.getContent());
                 } else if ((message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
-                    messageList.getItems().add("Por " + selectedUser.getName() + ": " + message.getContent());
+                    messageList.getItems().add("De " + selectedUser.getName() + ": " + message.getContent());
                 }
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error loading messages", e);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error al cargar mensajes");
-            alert.setHeaderText("No se pudieron cargar los mensajes");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            showAlert("Error al cargar mensajes", "No se pudieron cargar los mensajes", e.getMessage());
         }
     }
 
+    /**
+     * Adds a new message to the XML file.
+     *
+     * @param newMessage the message to be added.
+     * @param xmlFile the XML file where the message will be stored.
+     * @throws ParserConfigurationException if there is an issue with the parser configuration.
+     * @throws TransformerException if there is an issue transforming the document.
+     * @throws IOException if there is an issue reading/writing the file.
+     * @throws org.xml.sax.SAXException if there is an issue with the XML structure.
+     */
     private void addMessageToXML(Message newMessage, File xmlFile)
             throws ParserConfigurationException, TransformerException, IOException, org.xml.sax.SAXException {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -140,31 +152,25 @@ public class ChatController implements Initializable {
 
         Element rootElement = doc.getDocumentElement();
 
-        // Create the new <message> element
         Element messageElement = doc.createElement("message");
         rootElement.appendChild(messageElement);
 
-        // Add the <sender>
         Element senderElement = doc.createElement("sender");
         senderElement.appendChild(doc.createTextNode(newMessage.getSender().getName()));
         messageElement.appendChild(senderElement);
 
-        // Add the <receiver>
         Element receiverElement = doc.createElement("receiver");
         receiverElement.appendChild(doc.createTextNode(newMessage.getReceiver().getName()));
         messageElement.appendChild(receiverElement);
 
-        // Add the <content>
         Element contentElement = doc.createElement("content");
         contentElement.appendChild(doc.createTextNode(newMessage.getContent()));
         messageElement.appendChild(contentElement);
 
-        // Add the <timestamp>
         Element timestampElement = doc.createElement("timestamp");
         timestampElement.appendChild(doc.createTextNode(newMessage.getTimestamp().toString()));
         messageElement.appendChild(timestampElement);
 
-        // Save the document to the XML file
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
@@ -174,14 +180,24 @@ public class ChatController implements Initializable {
         transformer.transform(source, result);
     }
 
-    // Nuevo método para agregar el mensaje al archivo de texto
+    /**
+     * Adds a new message to the text file.
+     *
+     * @param newMessage the message to be added.
+     * @param txtFile the text file where the message will be stored.
+     * @throws IOException if there is an issue reading/writing the file.
+     */
     private void addMessageToTxt(Message newMessage, File txtFile) throws IOException {
         try (FileWriter writer = new FileWriter(txtFile, true)) {
             writer.write("[" + newMessage.getTimestamp() + "] " + newMessage.getSender().getName() +
-                    " to " + newMessage.getReceiver().getName() + ": " + newMessage.getContent() + "\n");
+                    " a " + newMessage.getReceiver().getName() + ": " + newMessage.getContent() + "\n");
         }
     }
 
+    /**
+     * Sends a message to the selected user.
+     * Creates a new Message object and saves it to the XML and text files.
+     */
     @FXML
     private void sendMessage() {
         String content = messageField.getText();
@@ -190,82 +206,76 @@ public class ChatController implements Initializable {
             Message newMessage = new Message(currentUser, selectedUser, content, LocalDateTime.now());
 
             try {
-                // Add the new message to the XML file
                 addMessageToXML(newMessage, new File(filePathChat));
-
-                // Add the new message to the text file
                 addMessageToTxt(newMessage, new File(filePathChatTxt));
-
-                // Append the new message to the ListView
-                messageList.getItems().add("To " + selectedUser.getName() + ": " + content);
+                messageList.getItems().add("A " + selectedUser.getName() + ": " + content);
                 messageField.clear();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Error sending message", e);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error al enviar mensaje");
-                alert.setHeaderText("No se pudo enviar el mensaje");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+                showAlert("Error al enviar el mensaje", "No se pudo enviar el mensaje", e.getMessage());
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Información");
-            alert.setHeaderText("No hay usuario seleccionado");
-            alert.setContentText("Por favor, seleccione un usuario antes de enviar un mensaje.");
-            alert.showAndWait();
+            showAlert("Información", "No se ha seleccionado un usuario", "Por favor, selecciona un usuario antes de enviar un mensaje.");
         }
     }
-        @FXML
-        private void exportConversationToTXT() {
-            if (selectedUser == null) {
-                showAlert("Error", "No se ha seleccionado un usuario", "Por favor, selecciona un usuario para exportar la conversación.");
-                return;
-            }
 
-            try {
-                List<Message> allMessages = XmlReader.getMessagesFromXML(filePathChat);
-                List<Message> conversation = new ArrayList<>();
-
-                for (Message message : allMessages) {
-                    if ((message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) ||
-                            (message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
-                        conversation.add(message);
-                    }
-                }
-
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Guardar Conversación");
-                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
-                File file = fileChooser.showSaveDialog((Stage) messageList.getScene().getWindow());
-
-                if (file != null) {
-                    try (FileOutputStream fos = new FileOutputStream(file);
-                         OutputStreamWriter osw = new OutputStreamWriter(fos);
-                         PrintWriter writer = new PrintWriter(osw)) {
-
-                        for (Message message : conversation) {
-                            writer.println("[" + message.getTimestamp() + "] " +
-                                    message.getSender().getName() + " a " +
-                                    message.getReceiver().getName() + ": " +
-                                    message.getContent());
-                        }
-                    }
-
-                    showAlert("Exportación Exitosa", "Conversación Exportada",
-                            "La conversación ha sido exportada exitosamente a " + file.getAbsolutePath());
-                }
-            } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error al exportar la conversación", e);
-                showAlert("Error al Exportar", "No se pudo exportar la conversación", e.getMessage());
-            }
+    /**
+     * Exports the conversation with the selected user to a text file.
+     */
+    @FXML
+    private void exportConversationToTXT() {
+        if (selectedUser == null) {
+            showAlert("Error", "No se ha seleccionado un usuario", "Por favor, selecciona un usuario para exportar la conversación.");
+            return;
         }
 
-        private void showAlert (String title, String header, String content){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(title);
-            alert.setHeaderText(header);
-            alert.setContentText(content);
-            alert.showAndWait();
-        }
+        try {
+            List<Message> allMessages = XmlReader.getMessagesFromXML(filePathChat);
+            List<Message> conversation = new ArrayList<>();
 
+            for (Message message : allMessages) {
+                if ((message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) ||
+                        (message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
+                    conversation.add(message);
+                }
+            }
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Guardar Conversación");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
+            File file = fileChooser.showSaveDialog((Stage) messageList.getScene().getWindow());
+
+            if (file != null) {
+                try (FileOutputStream fos = new FileOutputStream(file);
+                     OutputStreamWriter osw = new OutputStreamWriter(fos);
+                     PrintWriter writer = new PrintWriter(osw)) {
+
+                    for (Message message : conversation) {
+                        writer.println("[" + message.getTimestamp() + "] " +
+                                message.getSender().getName() + " a " +
+                                message.getReceiver().getName() + ": " +
+                                message.getContent());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error exporting conversation", e);
+            showAlert("Error al exportar la conversación", "No se pudo exportar la conversación", e.getMessage());
+        }
     }
+
+    /**
+     * Displays an alert dialog with a specified title, header, and content.
+     *
+     * @param title   the title of the alert.
+     * @param header  the header text of the alert.
+     * @param content the content text of the alert.
+     */
+    private void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+}
