@@ -115,7 +115,7 @@ public class ChatController implements Initializable {
 
             for (Message message : messages) {
                 if (message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) {
-                    messageList.getItems().add("A " + selectedUser.getName() + ": " + message.getContent());
+                    messageList.getItems().add("Para " + selectedUser.getName() + ": " + message.getContent());
                 } else if ((message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
                     messageList.getItems().add("De " + selectedUser.getName() + ": " + message.getContent());
                 }
