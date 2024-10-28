@@ -27,7 +27,7 @@ public class SplashController implements Initializable {
 
                 Platform.runLater(() -> {
                     try {
-                        App.setRoot("Primary"); // Cambiar a Primary.fxml
+                        App.setRoot("Primary");
                     } catch (IOException ex) {
                         Logger.getLogger(SplashController.class.getName()).log(Level.SEVERE, null, ex);
                     }

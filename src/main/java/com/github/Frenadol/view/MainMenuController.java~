@@ -147,7 +147,6 @@ public class MainMenuController implements Initializable {
 
                     List<User> users = XmlReader.getUsersFromXML(filePath);
                     if (users != null) {
-                        // Buscar y actualizar la lista de contactos del usuario actual
                         for (User user : users) {
                             if (user.getName().equals(currentUser.getName())) {
                                 user.setContacts(currentUser.getContacts());
@@ -155,7 +154,7 @@ public class MainMenuController implements Initializable {
                             }
                         }
 
-                        // Guardar los cambios en el XML con persistencia
+                        // Guardar los cambios en el XML sin limpiar las contraseñas
                         XmlReader.saveUsersToXML(users, filePath);
                     }
 
@@ -179,8 +178,7 @@ public class MainMenuController implements Initializable {
             List<User> users = XmlReader.getUsersFromXML(filePath);
             for (User user : users) {
                 if (user.getName().equals(currentUser.getName())) {
-                    // Agregar todos los contactos a la lista de contactos
-                    contactList.clear();
+                    // Add all contacts to the list
                     contactList.addAll(user.getContacts());
                     contactsTable.setItems(contactList);
                     break;
@@ -211,14 +209,18 @@ public class MainMenuController implements Initializable {
                         .orElse(null);
 
                 if (updatedSelectedContact != null && updatedCurrentUser != null) {
+                    // Verificar si el usuario actual tiene al contacto seleccionado en su lista de contactos
                     boolean currentUserHasContact = updatedCurrentUser.getContacts().contains(updatedSelectedContact);
+                    // Verificar si el contacto seleccionado tiene al usuario actual en su lista de contactos
                     boolean contactHasCurrentUser = updatedSelectedContact.getContacts().contains(updatedCurrentUser);
 
                     if (currentUserHasContact && contactHasCurrentUser) {
+                        // Ambos se tienen mutuamente, permitir el chat
                         SessionManager.getInstance().setSelectedUser(updatedSelectedContact);
                         showAlert("Chat iniciado con " + updatedSelectedContact.getName());
                         App.setRoot("Chat");
                     } else {
+                        // Si no se tienen mutuamente agregados, mostrar un mensaje de error
                         showAlert("No puedes chatear con " + updatedSelectedContact.getName() + " porque no se tienen agregados mutuamente.");
                     }
                 } else {
