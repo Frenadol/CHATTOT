@@ -41,6 +41,7 @@ public class RegisterUserController {
     private File imageFile;
 
     private static final String USERS_FILE = "UsersData.xml";
+
     /**
      * This method is used to register a new user and save it to an XML file.
      */
@@ -48,9 +49,21 @@ public class RegisterUserController {
         String username = textUsername.getText();
         String pass = textPassword.getText();
 
+        // Check if all fields are filled
         if (username.isEmpty() || pass.isEmpty()) {
-            String message = "Por favor, complete todos los campos.";
-            showAlert(message);
+            showAlert("Por favor, complete todos los campos.");
+            return;
+        }
+
+        // Check if image is chosen
+        if (imageFile == null) {
+            showAlert("Por favor, elija una foto de perfil.");
+            return;
+        }
+
+        // Check if password is secure
+        if (!isPasswordSecure(pass)) {
+            showAlert("La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un número.");
             return;
         }
 
@@ -59,12 +72,10 @@ public class RegisterUserController {
 
             // Check if user already exists in the XML file
             if (isUserExists(username, xmlFile)) {
-                String message = "El nombre de usuario ya está en uso. Por favor, elija otro.";
-                showAlert(message);
+                showAlert("El nombre de usuario ya está en uso. Por favor, elija otro.");
                 return;
             }
 
-            // Hash the password (you can keep this part)
             String hashedPassword;
             try {
                 hashedPassword = Security.hashPassword(pass);
@@ -73,24 +84,42 @@ public class RegisterUserController {
                 return;
             }
 
-
-            byte[] imageData = null;
-            if (imageFile != null) {
-                imageData = new byte[(int) imageFile.length()];
-                FileInputStream fis = new FileInputStream(imageFile);
+            // Read image data
+            byte[] imageData = new byte[(int) imageFile.length()];
+            try (FileInputStream fis = new FileInputStream(imageFile)) {
                 fis.read(imageData);
-                fis.close();
             }
 
-            // Create new User element and save to XML
             addUserToXML(username, hashedPassword, imageData, xmlFile);
 
-            String message = "Usuario registrado con éxito!";
-            showAlert(message);
+            showAlert("Usuario registrado con éxito!");
             App.setRoot("primary");
         } catch (Exception e) {
             showAlert("Error al registrar el usuario: " + e.getMessage());
         }
+    }
+
+    /**
+     * Checks if a password is secure, meaning it contains at least one uppercase letter, one digit, and is at least 8 characters long.
+     */
+    private boolean isPasswordSecure(String password) {
+        if (password.length() < 8) {
+            return false;
+        }
+
+        boolean hasUppercase = false;
+        boolean hasDigit = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUppercase = true;
+            }
+            if (Character.isDigit(c)) {
+                hasDigit = true;
+            }
+        }
+
+        return hasUppercase && hasDigit;
     }
 
     /**
@@ -177,8 +206,14 @@ public class RegisterUserController {
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
+
+        alert.getDialogPane().setPrefSize(400, 200); // Ajusta el ancho y alto según tus necesidades
+
+        alert.getDialogPane().setStyle("-fx-font-size: 14px;"); // Ajusta el tamaño de la fuente si deseas hacerlo más grande
+
         alert.show();
     }
+
 
     @FXML
     private void onClose() {

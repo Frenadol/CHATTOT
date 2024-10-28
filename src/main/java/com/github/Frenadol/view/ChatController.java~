@@ -223,9 +223,11 @@ public class ChatController implements Initializable {
             }
 
             try {
+                // Obtener todos los mensajes desde el archivo XML
                 List<Message> allMessages = XmlReader.getMessagesFromXML(filePathChat);
                 List<Message> conversation = new ArrayList<>();
 
+                // Filtrar los mensajes entre el usuario actual y el usuario seleccionado
                 for (Message message : allMessages) {
                     if ((message.getSender().equals(currentUser) && message.getReceiver().equals(selectedUser)) ||
                             (message.getSender().equals(selectedUser) && message.getReceiver().equals(currentUser))) {
@@ -233,6 +235,7 @@ public class ChatController implements Initializable {
                     }
                 }
 
+                // Configurar el selector de archivos para guardar la conversación en un archivo de texto
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Guardar Conversación");
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
@@ -243,6 +246,7 @@ public class ChatController implements Initializable {
                          OutputStreamWriter osw = new OutputStreamWriter(fos);
                          PrintWriter writer = new PrintWriter(osw)) {
 
+                        // Escribir cada mensaje en el archivo de texto
                         for (Message message : conversation) {
                             writer.println("[" + message.getTimestamp() + "] " +
                                     message.getSender().getName() + " a " +
