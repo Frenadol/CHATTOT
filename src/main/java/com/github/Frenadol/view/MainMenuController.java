@@ -218,15 +218,8 @@
                     List<User> allUsers = XmlReader.getUsersFromXML(filePath);
 
                     // Obtener la versión actualizada del contacto seleccionado y del usuario actual desde el archivo XML
-                    User updatedSelectedContact = allUsers.stream()
-                            .filter(user -> user.getName().equals(selectedContact.getName()))
-                            .findFirst()
-                            .orElse(null);
-
-                    User updatedCurrentUser = allUsers.stream()
-                            .filter(user -> user.getName().equals(currentUser.getName()))
-                            .findFirst()
-                            .orElse(null);
+                    User updatedSelectedContact = allUsers.stream().filter(user -> user.getName().equals(selectedContact.getName())).findFirst().orElse(null);
+                    User updatedCurrentUser = allUsers.stream().filter(user -> user.getName().equals(currentUser.getName())).findFirst().orElse(null);
 
                     if (updatedSelectedContact != null && updatedCurrentUser != null) {
                         boolean currentUserHasContact = updatedCurrentUser.getContacts().contains(updatedSelectedContact);
