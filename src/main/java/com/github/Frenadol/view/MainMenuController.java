@@ -256,7 +256,7 @@ public class MainMenuController implements Initializable {
                     if (currentUserHasContact && contactHasCurrentUser) {
                         SessionManager.getInstance().setSelectedUser(updatedSelectedContact);
                         showAlert("Chat iniciado con " + updatedSelectedContact.getName());
-                        App.setRoot("ChatView");
+                        App.setRoot("Chat");
                     } else {
                         showAlert("No puedes iniciar un chat con " + updatedSelectedContact.getName() + " porque no es tu contacto.");
                     }
