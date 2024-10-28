@@ -46,6 +46,7 @@ public class RegisterUserController {
      * It performs several checks, including whether all fields are filled,
      * if the password is secure, and if the username is already taken.
      */
+    @FXML
     public void registerUser() {
         String username = textUsername.getText();
         String pass = textPassword.getText();
@@ -224,10 +225,7 @@ public class RegisterUserController {
         alert.show();
     }
 
-    @FXML
-    private void onClose() {
-        // Method to close the window if necessary
-    }
+
 
     /**
      * Allows the user to select an image file for their profile picture.
@@ -259,6 +257,7 @@ public class RegisterUserController {
      *
      * @throws IOException if there is an issue loading the primary view
      */
+    @FXML
     public void goBack() throws IOException {
         App.setRoot("Primary");
     }
