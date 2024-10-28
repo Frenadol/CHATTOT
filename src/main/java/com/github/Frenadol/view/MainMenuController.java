@@ -129,8 +129,6 @@ public class MainMenuController implements Initializable {
             loadContactsForCurrentUser();
         }
 
-        changeNameButton.setOnAction(event -> changeUserName());
-
         changePhotoButton.setOnAction(event -> changeUserPhoto());
     }
 
@@ -280,32 +278,11 @@ public class MainMenuController implements Initializable {
                 ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
                 Image image = new Image(bis);
                 userImage.setImage(image);
-                userImage.setFitWidth(150);
-                userImage.setFitHeight(150);
+                userImage.setFitWidth(100);
+                userImage.setFitHeight(100);
                 applyCircularClip(userImage);
             }
         }
-    }
-
-    /**
-     * Changes the current user's name after confirmation.
-     */
-    @FXML
-    private void changeUserName() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Cambiar Nombre");
-        dialog.setHeaderText("Ingresa el nuevo nombre:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(newName -> {
-            User currentUser = SessionManager.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                currentUser.setName(newName);
-                showAlert("Nombre cambiado exitosamente.");
-                XmlReader.saveUsersToXML(XmlReader.getUsersFromXML(filePath), filePath);
-                loadContactsForCurrentUser();
-                NameUser.setText(currentUser.getName());
-            }
-        });
     }
 
     /**
@@ -326,9 +303,37 @@ public class MainMenuController implements Initializable {
                     currentUser.setProfileImage(imageData);
                     showAlert("Foto de perfil cambiada exitosamente.");
                     loadCurrentUserImage();
-                    XmlReader.saveUsersToXML(XmlReader.getUsersFromXML(filePath), filePath);
+
+                    List<User> users = XmlReader.getUsersFromXML(filePath);
+                    for (User user : users) {
+                        if (user.getName().equals(currentUser.getName())) {
+                            user.setProfileImage(imageData);
+                            break;
+                        }
+                    }
+                    XmlReader.saveUsersToXML(users, filePath);
+
+                    refreshContactsTable();
                 } catch (IOException e) {
                     showAlert("Ocurrió un error al cargar la foto: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * Refreshes the contacts table by reloading the contacts for the current user.
+     */
+    private void refreshContactsTable() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equals(currentUser.getName())) {
+                    contactList.clear();
+                    contactList.addAll(user.getContacts());
+                    contactsTable.setItems(contactList);
+                    break;
                 }
             }
         }
