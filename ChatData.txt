@@ -7,3 +7,8 @@
 [2024-10-27T14:30:26.867013400] Pedro a Manolo: no
 [2024-10-27T14:31:02.733527800] Manolo a Pedro: si
 [2024-10-28T16:23:06.530465600] Pedro a Manolo: si
+[2024-10-28T22:51:27.629867800] Tate a Manolo: d
+[2024-10-28T23:16:44.133765400] Pepe a Jose: hola
+[2024-10-28T23:21:11.977199800] Jose a Manolo: <sdfasf
+[2024-10-28T23:21:13.978846700] Jose a Manolo: saddasdas
+[2024-10-28T23:48:12.963392100] Manolo a Pito2: asdfsf

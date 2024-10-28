@@ -1,4 +1,3 @@
-// XmlReader.java
 package com.github.Frenadol.utils;
 
 import com.github.Frenadol.model.Message;
@@ -17,15 +16,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class for reading and writing user and message data to and from XML files.
+ */
 public class XmlReader {
 
     public String filePath;
     private static String usersPathChat = "UsersData.xml";
 
+    /**
+     * Constructor to initialize the XmlReader with a specific file path.
+     *
+     * @param filePath the path to the XML file.
+     */
     public XmlReader(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads users from the specified XML file and returns a list of User objects.
+     *
+     * @param filePath the path to the XML file.
+     * @return a list of User objects.
+     */
     public static List<User> getUsersFromXML(String filePath) {
         List<User> users = new ArrayList<>();
 
@@ -58,7 +71,6 @@ public class XmlReader {
                         contacts.add(new User(contactName, contactPassword, contactImage, null));
                     }
 
-                    // Create the User object and add it to the list
                     users.add(new User(name, password, image, contacts));
                 }
             }
@@ -69,6 +81,12 @@ public class XmlReader {
         return users;
     }
 
+    /**
+     * Saves a list of User objects to the specified XML file.
+     *
+     * @param users the list of User objects to save.
+     * @param filePath the path to the XML file.
+     */
     public static void saveUsersToXML(List<User> users, String filePath) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -128,16 +146,23 @@ public class XmlReader {
             e.printStackTrace();
         }
     }
+
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
+    /**
+     * Reads messages from the specified XML file and returns a list of Message objects.
+     *
+     * @param filePath the path to the XML file.
+     * @return a list of Message objects.
+     */
     public static List<Message> getMessagesFromXML(String filePath) {
         List<Message> messages = new ArrayList<>();
-        List<User> users = getUsersFromXML(usersPathChat); // Ensure users are loaded from the correct path
+        List<User> users = getUsersFromXML(usersPathChat);
 
         try {
             File xmlFile = new File(filePath);
             if (!xmlFile.exists()) {
-                return messages; // If the file does not exist, return an empty list
+                return messages;
             }
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -152,7 +177,6 @@ public class XmlReader {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
 
-                    // Get message details from XML
                     String senderName = element.getElementsByTagName("sender").item(0).getTextContent();
                     String receiverName = element.getElementsByTagName("receiver").item(0).getTextContent();
                     String content = element.getElementsByTagName("content").item(0).getTextContent();
@@ -161,10 +185,8 @@ public class XmlReader {
                     User sender = findUserByName(users, senderName);
                     User receiver = findUserByName(users, receiverName);
 
-                    // Validate if both users are found
                     if (sender != null && receiver != null) {
                         LocalDateTime timestamp = LocalDateTime.parse(timestampStr, formatter);
-                        // Create the Message object and add it to the list
                         messages.add(new Message(sender, receiver, content, timestamp));
                     } else {
                         System.err.println("Error: Sender or Receiver not found for message: " + content);
@@ -175,9 +197,16 @@ public class XmlReader {
             e.printStackTrace();
         }
 
-        return messages; // Return the list of messages
+        return messages;
     }
 
+    /**
+     * Finds a user by their name from a list of users.
+     *
+     * @param users the list of users to search.
+     * @param name the name of the user to find.
+     * @return the User object if found, null otherwise.
+     */
     private static User findUserByName(List<User> users, String name) {
         for (User user : users) {
             if (user.getName().equals(name)) {

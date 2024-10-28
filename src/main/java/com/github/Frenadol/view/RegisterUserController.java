@@ -28,8 +28,6 @@ public class RegisterUserController {
     @FXML
     private TextField textUsername;
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     private PasswordField textPassword;
     @FXML
     private Button usersRegister;
