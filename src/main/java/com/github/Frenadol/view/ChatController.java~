@@ -8,8 +8,6 @@ import com.github.Frenadol.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -22,7 +20,9 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -207,14 +207,13 @@ public class ChatController implements Initializable {
                 alert.setContentText(e.getMessage());
                 alert.showAndWait();
             }
-        } else {
+        } else {ñ
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Información");
             alert.setHeaderText("No hay usuario seleccionado");
             alert.setContentText("Por favor, seleccione un usuario antes de enviar un mensaje.");
             alert.showAndWait();
         }
-    }
         @FXML
         private void exportConversationToTXT() {
             if (selectedUser == null) {
@@ -271,5 +270,5 @@ public class ChatController implements Initializable {
             alert.setContentText(content);
             alert.showAndWait();
         }
-
+    }
     }

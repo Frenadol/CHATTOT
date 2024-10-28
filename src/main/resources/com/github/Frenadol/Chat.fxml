@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane fx:id="chatDialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" styleClass="Chat" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
+<DialogPane fx:id="chatDialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="545.0" styleClass="Chat" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
     <header>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="480.0" styleClass="Chat" stylesheets="@../../../Background.css">
          <children>
@@ -14,11 +14,12 @@
          </children></AnchorPane>
     </header>
     <content>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" styleClass="Chat" stylesheets="@../../../Background.css">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="61.0" prefWidth="480.0" styleClass="Chat" stylesheets="@../../../Background.css">
          <children>
-            <Button fx:id="sendButton" layoutX="387.0" layoutY="11.0" onAction="#sendMessage" text="Send" AnchorPane.rightAnchor="50.333333333333314" />
+            <Button fx:id="sendButton" layoutX="387.0" layoutY="11.0" onAction="#sendMessage" text="Enviar" AnchorPane.rightAnchor="50.333333333333314" />
             <TextField fx:id="messageField" layoutX="16.0" layoutY="11.0" prefHeight="25.0" prefWidth="379.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="95.0" />
             <Button fx:id="BackButton" layoutX="442.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="25.0" prefWidth="47.0" text="Back" AnchorPane.rightAnchor="-9.333333333333314" />
+            <Button layoutX="455.0" layoutY="43.0" mnemonicParsing="false" onMouseClicked="#exportConversationToTXT" prefHeight="26.0" prefWidth="68.0" text="Exportar" />
          </children></AnchorPane>
     </content>
     <expandableContent>
