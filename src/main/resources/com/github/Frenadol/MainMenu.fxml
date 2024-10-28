@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="768.0" styleClass="MainMenu" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="768.0" styleClass="MainMenu" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.MainMenuController">
    <children>
       <Text layoutX="284.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuarios disponibles:" wrappingWidth="249.33333333333348" AnchorPane.topAnchor="54.0" />
       <TableView fx:id="usersTable" editable="true" layoutX="284.0" layoutY="71.0" prefHeight="401.0" prefWidth="257.0">
@@ -33,6 +33,8 @@
       <Button fx:id="sendMessageButton" layoutX="122.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#chattedWithContact" text="Chatear" AnchorPane.topAnchor="22.0" />
       <Text layoutX="535.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Chattot" wrappingWidth="110.90625" AnchorPane.topAnchor="6.0" />
        <ImageView fx:id="userImage" fitHeight="120" fitWidth="120" layoutX="648.0" layoutY="2.0" AnchorPane.topAnchor="2.0" />
-      <Button fx:id="BackButton" layoutX="675.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="39.0" prefWidth="72.0" text="Back" />
+      <Button fx:id="BackButton" layoutX="624.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="39.0" prefWidth="72.0" text="Atras" />
+      <Button fx:id="changeNameButton" layoutX="606.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#changeUserName" text="Cambiar Nombre" />
+      <Button fx:id="changePhotoButton" layoutX="583.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#changeUserPhoto" prefHeight="26.0" prefWidth="154.0" text="Cambiar imagen de perfil" />
    </children>
 </AnchorPane>

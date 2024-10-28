@@ -9,20 +9,29 @@ public class MessageListCell extends ListCell<String> {
     private HBox content;
     private Label messageLabel;
 
+    /**
+     * Constructs a MessageListCell, initializing the label for the message and the layout container.
+     */
     public MessageListCell() {
         super();
         messageLabel = new Label();
         content = new HBox(messageLabel);
     }
 
+    /**
+     * Updates the display of the list cell based on the item's content and its empty state.
+     *
+     * @param item  the item to be displayed in the cell, represented as a String.
+     * @param empty indicates whether the cell is empty or not.
+     */
     @Override
     protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null && !empty) {
-            if (item.startsWith("To ")) {
+            if (item.startsWith("Para ")) { // Cambiado "To " a "Para "
                 content.setAlignment(Pos.CENTER_RIGHT);
                 messageLabel.setStyle("-fx-background-color: lightblue; -fx-padding: 5px;");
-            } else if (item.startsWith("From ")) {
+            } else if (item.startsWith("De ")) { // Cambiado "From " a "De "
                 content.setAlignment(Pos.CENTER_LEFT);
                 messageLabel.setStyle("-fx-background-color: lightgreen; -fx-padding: 5px;");
             }

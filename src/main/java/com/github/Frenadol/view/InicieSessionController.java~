@@ -41,7 +41,7 @@ public class InicieSessionController {
         String pass = textPassword.getText();
 
         if (username.isEmpty() || pass.isEmpty()) {
-            String message = "Por favor, complete todos los campos.";
+            String message = "Please complete all fields.";
             showAlert(message);
             return;
         }
@@ -50,16 +50,16 @@ public class InicieSessionController {
             File xmlFile = new File(USERS_FILE);
 
             if (isUserExists(username, pass, xmlFile)) {
-                String message = "Usuario iniciado sesión exitosamente.";
+                String message = "User successfully logged in.";
                 showAlert(message);
                 App.setRoot("MainMenu");
             } else {
-                String message = "Nombre de usuario o contraseña incorrectos.";
+                String message = "Incorrect username or password.";
                 showAlert(message);
             }
 
         } catch (Exception e) {
-            showAlert("Error al iniciar sesión: " + e.getMessage());
+            showAlert("Error logging in: " + e.getMessage());
         }
     }
 
