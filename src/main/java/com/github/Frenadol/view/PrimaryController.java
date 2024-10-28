@@ -8,9 +8,9 @@ import javafx.scene.control.Button;
 
 public class PrimaryController {
     @FXML
-    private Button registrarBoton;
+    private Button registerButton;
     @FXML
-    private Button iniciarBoton;
+    private Button startButton;
 
     /**
      * Switches the view to the registration screen when the register button is clicked.

@@ -275,8 +275,8 @@ public class MainMenuController implements Initializable {
                 ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
                 Image image = new Image(bis);
                 userImage.setImage(image);
-                userImage.setFitWidth(100);
-                userImage.setFitHeight(100);
+                userImage.setFitWidth(200);
+                userImage.setFitHeight(200);
                 applyCircularClip(userImage);
             } else {
                 applyCircularClip(userImage);
