@@ -290,6 +290,7 @@ public class MainMenuController implements Initializable {
     /**
      * Changes the current user's name after confirmation.
      */
+    @FXML
     private void changeUserName() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Cambiar Nombre");
@@ -310,6 +311,7 @@ public class MainMenuController implements Initializable {
     /**
      * Changes the current user's profile photo after confirmation.
      */
+    @FXML
     private void changeUserPhoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Foto de Perfil");

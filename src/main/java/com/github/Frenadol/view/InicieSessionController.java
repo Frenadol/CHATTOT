@@ -36,6 +36,7 @@ public class InicieSessionController {
      * Initiates user login by verifying the username and password.
      * Displays an alert if the login is successful or unsuccessful.
      */
+    @FXML
     public void inicieUser() {
         String username = textUsername.getText();
         String pass = textPassword.getText();
@@ -143,6 +144,7 @@ public class InicieSessionController {
      *
      * @throws IOException if there is an issue changing the view.
      */
+    @FXML
     public void goBack() throws IOException {
         App.setRoot("Primary");
     }
