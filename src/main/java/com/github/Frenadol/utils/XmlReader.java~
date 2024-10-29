@@ -214,30 +214,4 @@ public class XmlReader {
         }
         return null;
     }
-    public static boolean isUserExists(String username, String filePath) throws Exception {
-        File xmlFile = new File(filePath);
-        if (!xmlFile.exists()) return false;
-
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(xmlFile);
-        doc.getDocumentElement().normalize();
-
-        NodeList nodeList = doc.getElementsByTagName("user");
-
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node node = nodeList.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                String existingUsername = element.getElementsByTagName("username").item(0).getTextContent();
-
-                if (existingUsername.equals(username)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 }

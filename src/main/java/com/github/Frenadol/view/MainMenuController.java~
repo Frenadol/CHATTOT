@@ -153,12 +153,7 @@
             usersTable.setItems(userList);
         }
 
-        /**
-         * Loads the chat screen by initializing the Chat.fxml layout.
-         * Clears the current children of the Panel and adds the chat pane.
-         * Sets the preferred width and height of the chat pane to match the Panel's dimensions.
-         * Displays an alert if an error occurs during loading.
-         */
+
         @FXML
         private void loadChatScreen() {
             try {

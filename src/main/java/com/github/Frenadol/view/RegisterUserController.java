@@ -62,7 +62,6 @@ public class RegisterUserController {
             showAlert("Password must be at least 8 characters long, with an uppercase letter and a digit.");
             return;
         }
-
         try {
             File xmlFile = new File(USERS_FILE);
 
