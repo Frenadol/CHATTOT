@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <messages>
+<<<<<<< HEAD
+    <message>
+        <sender>Prueba2</sender>
+        <receiver>Prueba1</receiver>
+        <content>HOLA</content>
+        <timestamp>2024-10-29T09:00:47.971866500</timestamp>
+=======
                                                                                                             
     
     
@@ -2293,5 +2300,6 @@
         <receiver>Pito2</receiver>
         <content>asdfsf</content>
         <timestamp>2024-10-28T23:48:12.963392100</timestamp>
+>>>>>>> b2da6ff45dbef881f6525f2b53c732578f7d945f
     </message>
 </messages>
