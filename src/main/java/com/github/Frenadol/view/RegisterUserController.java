@@ -67,7 +67,7 @@ public class RegisterUserController {
             File xmlFile = new File(USERS_FILE);
 
             if (isUserExists(username, xmlFile)) {
-                showAlert("Username already in use. Please choose another.");
+                showAlert("Nombre ya en uso. Porfavor elije otro.");
                 return;
             }
 
@@ -75,7 +75,7 @@ public class RegisterUserController {
             try {
                 hashedPassword = Security.hashPassword(pass);
             } catch (NoSuchAlgorithmException e) {
-                showAlert("Error hashing the password.");
+                showAlert("Error al hashear la contraseña.");
                 return;
             }
 
@@ -85,10 +85,10 @@ public class RegisterUserController {
             }
 
             addUserToXML(username, hashedPassword, imageData, xmlFile);
-            showAlert("User registered successfully!");
+            showAlert("Registro exitoso!");
             App.setRoot("primary");
         } catch (Exception e) {
-            showAlert("Error registering user: " + e.getMessage());
+            showAlert("Error al registrar usuario: " + e.getMessage());
         }
     }
 

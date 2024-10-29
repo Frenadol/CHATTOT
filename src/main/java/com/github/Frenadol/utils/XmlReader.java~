@@ -213,7 +213,7 @@ public class XmlReader {
             }
         }
         return null;
-    }
+    } 
     public static boolean isUserExists(String username, String filePath, User currentUser) throws Exception {
         File xmlFile = new File(filePath);
         if (!xmlFile.exists()) return false;
@@ -253,5 +253,4 @@ public class XmlReader {
 
         return false;
     }
-
 }
