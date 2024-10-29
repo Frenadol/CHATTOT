@@ -14,3 +14,4 @@
 [2024-10-28T23:48:12.963392100] Manolo a Pito2: asdfsf
 [2024-10-29T16:47:21.455027600] Pedro a Manolo: siss
 [2024-10-29T17:07:43.735759300] Pedro a Manolo: tonto
+>>>>>>> b2da6ff45dbef881f6525f2b53c732578f7d945f

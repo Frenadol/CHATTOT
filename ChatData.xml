@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <messages>
-                                                                                                                    
-    
-    
-    
+
+
     
     
     
@@ -29,9 +27,7 @@
     
     
     <message>
-                                                                                                                                                                                                                                        
-        
-        
+                                                                                                                                                                                                                        
         
         
         
@@ -58,9 +54,7 @@
         
         
         <sender>6</sender>
-                                                                                                                                                                                                                                        
-        
-        
+                                                                                                                                                                                                                        
         
         
         
@@ -87,9 +81,7 @@
         
         
         <receiver>5</receiver>
-                                                                                                                                                                                                                                        
-        
-        
+                                                                                                                                                                                                                        
         
         
         
@@ -116,9 +108,7 @@
         
         
         <content>hhhh</content>
-                                                                                                                                                                                                                                        
-        
-        
+                                                                                                                                                                                                                        
         
         
         
@@ -145,340 +135,6 @@
         
         
         <timestamp>2024-10-24T18:48:28.568119700</timestamp>
-                                                                                                                                                                                                                                    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </message>
-                                                                                                                
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <message>
-                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <sender>Pedro</sender>
-                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <receiver>Manolo</receiver>
-                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <content>hola</content>
-                                                                                                                                                                                                                                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <timestamp>2024-10-25T11:29:31.322336500</timestamp>
-                                                                                                                                                                                                                            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </message>
-                                                                                                            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <message>
-                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <sender>Pedro</sender>
-                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <receiver>Manolo</receiver>
-                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <content>si</content>
-                                                                                                                                                                                                                        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <timestamp>2024-10-25T11:29:45.835750800</timestamp>
                                                                                                                                                                                                                     
     
     
@@ -610,7 +266,7 @@
         
         
         
-        <content>no</content>
+        <content>hola</content>
                                                                                                                                                                                                                 
         
         
@@ -636,7 +292,7 @@
         
         
         
-        <timestamp>2024-10-25T16:16:57.551820200</timestamp>
+        <timestamp>2024-10-25T11:29:31.322336500</timestamp>
                                                                                                                                                                                                             
     
     
@@ -763,7 +419,7 @@
         
         
         
-        <content>chupamela</content>
+        <content>si</content>
                                                                                                                                                                                                         
         
         
@@ -788,7 +444,7 @@
         
         
         
-        <timestamp>2024-10-27T13:42:17.641940400</timestamp>
+        <timestamp>2024-10-25T11:29:45.835750800</timestamp>
                                                                                                                                                                                                     
     
     
@@ -910,7 +566,7 @@
         
         
         
-        <content>poya</content>
+        <content>no</content>
                                                                                                                                                                                                 
         
         
@@ -934,7 +590,7 @@
         
         
         
-        <timestamp>2024-10-27T13:45:03.664612500</timestamp>
+        <timestamp>2024-10-25T16:16:57.551820200</timestamp>
                                                                                                                                                                                             
     
     
@@ -1028,7 +684,7 @@
         
         
         
-        <receiver>Tate</receiver>
+        <receiver>Manolo</receiver>
                                                                                                                                                                                         
         
         
@@ -1051,7 +707,7 @@
         
         
         
-        <content>vamos no me jodas</content>
+        <content>chupamela</content>
                                                                                                                                                                                         
         
         
@@ -1074,7 +730,7 @@
         
         
         
-        <timestamp>2024-10-27T14:23:21.003344100</timestamp>
+        <timestamp>2024-10-27T13:42:17.641940400</timestamp>
                                                                                                                                                                                     
     
     
@@ -1142,7 +798,7 @@
         
         
         
-        <sender>Manolo</sender>
+        <sender>Pedro</sender>
                                                                                                                                                                                 
         
         
@@ -1164,7 +820,7 @@
         
         
         
-        <receiver>Pedro</receiver>
+        <receiver>Manolo</receiver>
                                                                                                                                                                                 
         
         
@@ -1186,7 +842,7 @@
         
         
         
-        <content>si</content>
+        <content>poya</content>
                                                                                                                                                                                 
         
         
@@ -1208,7 +864,7 @@
         
         
         
-        <timestamp>2024-10-27T14:23:45.089390800</timestamp>
+        <timestamp>2024-10-27T13:45:03.664612500</timestamp>
                                                                                                                                                                             
     
     
@@ -1273,7 +929,7 @@
         
         
         
-        <sender>Tate</sender>
+        <sender>Pedro</sender>
                                                                                                                                                                         
         
         
@@ -1294,7 +950,7 @@
         
         
         
-        <receiver>Pedro</receiver>
+        <receiver>Tate</receiver>
                                                                                                                                                                         
         
         
@@ -1315,7 +971,7 @@
         
         
         
-        <content>si</content>
+        <content>vamos no me jodas</content>
                                                                                                                                                                         
         
         
@@ -1336,7 +992,7 @@
         
         
         
-        <timestamp>2024-10-27T14:24:08.805401200</timestamp>
+        <timestamp>2024-10-27T14:23:21.003344100</timestamp>
                                                                                                                                                                     
     
     
@@ -1398,7 +1054,7 @@
         
         
         
-        <sender>Pedro</sender>
+        <sender>Manolo</sender>
                                                                                                                                                                 
         
         
@@ -1418,7 +1074,7 @@
         
         
         
-        <receiver>Manolo</receiver>
+        <receiver>Pedro</receiver>
                                                                                                                                                                 
         
         
@@ -1438,7 +1094,7 @@
         
         
         
-        <content>no</content>
+        <content>si</content>
                                                                                                                                                                 
         
         
@@ -1458,7 +1114,7 @@
         
         
         
-        <timestamp>2024-10-27T14:30:26.867013400</timestamp>
+        <timestamp>2024-10-27T14:23:45.089390800</timestamp>
                                                                                                                                                             
     
     
@@ -1517,7 +1173,7 @@
         
         
         
-        <sender>Manolo</sender>
+        <sender>Tate</sender>
                                                                                                                                                         
         
         
@@ -1574,7 +1230,7 @@
         
         
         
-        <timestamp>2024-10-27T14:31:02.733527800</timestamp>
+        <timestamp>2024-10-27T14:24:08.805401200</timestamp>
                                                                                                                                                     
     
     
@@ -1630,7 +1286,7 @@
         
         
         
-        <sender>Kique</sender>
+        <sender>Pedro</sender>
                                                                                                                                                 
         
         
@@ -1648,7 +1304,7 @@
         
         
         
-        <receiver>Pedro</receiver>
+        <receiver>Manolo</receiver>
                                                                                                                                                 
         
         
@@ -1666,7 +1322,7 @@
         
         
         
-        <content>hola</content>
+        <content>no</content>
                                                                                                                                                 
         
         
@@ -1684,7 +1340,7 @@
         
         
         
-        <timestamp>2024-10-27T14:32:25.419706600</timestamp>
+        <timestamp>2024-10-27T14:30:26.867013400</timestamp>
                                                                                                                                             
     
     
@@ -1737,7 +1393,7 @@
         
         
         
-        <sender>Kique</sender>
+        <sender>Manolo</sender>
                                                                                                                                         
         
         
@@ -1754,7 +1410,7 @@
         
         
         
-        <receiver>Manolo</receiver>
+        <receiver>Pedro</receiver>
                                                                                                                                         
         
         
@@ -1788,7 +1444,7 @@
         
         
         
-        <timestamp>2024-10-27T14:32:35.511167900</timestamp>
+        <timestamp>2024-10-27T14:31:02.733527800</timestamp>
                                                                                                                                     
     
     
@@ -1838,7 +1494,7 @@
         
         
         
-        <sender>Tate</sender>
+        <sender>Kique</sender>
                                                                                                                                 
         
         
@@ -1854,7 +1510,7 @@
         
         
         
-        <receiver>11</receiver>
+        <receiver>Pedro</receiver>
                                                                                                                                 
         
         
@@ -1870,7 +1526,7 @@
         
         
         
-        <content>MISTER MISTER MISTEFR</content>
+        <content>hola</content>
                                                                                                                                 
         
         
@@ -1886,7 +1542,7 @@
         
         
         
-        <timestamp>2024-10-28T10:49:02.879669300</timestamp>
+        <timestamp>2024-10-27T14:32:25.419706600</timestamp>
                                                                                                                             
     
     
@@ -1933,7 +1589,7 @@
         
         
         
-        <sender>Tate</sender>
+        <sender>Kique</sender>
                                                                                                                         
         
         
@@ -1948,7 +1604,7 @@
         
         
         
-        <receiver>Pedro</receiver>
+        <receiver>Manolo</receiver>
                                                                                                                         
         
         
@@ -1963,7 +1619,7 @@
         
         
         
-        <content>PASEN PORNO</content>
+        <content>si</content>
                                                                                                                         
         
         
@@ -1978,7 +1634,7 @@
         
         
         
-        <timestamp>2024-10-28T10:50:50.152641400</timestamp>
+        <timestamp>2024-10-27T14:32:35.511167900</timestamp>
                                                                                                                     
     
     
@@ -2022,7 +1678,7 @@
         
         
         
-        <sender>11</sender>
+        <sender>Tate</sender>
                                                                                                                 
         
         
@@ -2036,7 +1692,7 @@
         
         
         
-        <receiver>Kique</receiver>
+        <receiver>11</receiver>
                                                                                                                 
         
         
@@ -2050,7 +1706,7 @@
         
         
         
-        <content>GGGGGGG</content>
+        <content>MISTER MISTER MISTEFR</content>
                                                                                                                 
         
         
@@ -2064,7 +1720,7 @@
         
         
         
-        <timestamp>2024-10-28T11:21:29.232176400</timestamp>
+        <timestamp>2024-10-28T10:49:02.879669300</timestamp>
                                                                                                             
     
     
@@ -2105,7 +1761,7 @@
         
         
         
-        <sender>11</sender>
+        <sender>Tate</sender>
                                                                                                         
         
         
@@ -2118,7 +1774,7 @@
         
         
         
-        <receiver>Kique</receiver>
+        <receiver>Pedro</receiver>
                                                                                                         
         
         
@@ -2131,7 +1787,7 @@
         
         
         
-        <content>mister mister</content>
+        <content>PASEN PORNO</content>
                                                                                                         
         
         
@@ -2144,7 +1800,7 @@
         
         
         
-        <timestamp>2024-10-28T12:24:00.171691800</timestamp>
+        <timestamp>2024-10-28T10:50:50.152641400</timestamp>
                                                                                                     
     
     
@@ -2182,7 +1838,7 @@
         
         
         
-        <sender>Pedro</sender>
+        <sender>11</sender>
                                                                                                 
         
         
@@ -2194,7 +1850,7 @@
         
         
         
-        <receiver>Manolo</receiver>
+        <receiver>Kique</receiver>
                                                                                                 
         
         
@@ -2206,7 +1862,7 @@
         
         
         
-        <content>si</content>
+        <content>GGGGGGG</content>
                                                                                                 
         
         
@@ -2218,7 +1874,7 @@
         
         
         
-        <timestamp>2024-10-28T16:23:06.530465600</timestamp>
+        <timestamp>2024-10-28T11:21:29.232176400</timestamp>
                                                                                             
     
     
@@ -2253,7 +1909,7 @@
         
         
         
-        <sender>Chusma3</sender>
+        <sender>11</sender>
                                                                                         
         
         
@@ -2264,7 +1920,7 @@
         
         
         
-        <receiver>Chusma2</receiver>
+        <receiver>Kique</receiver>
                                                                                         
         
         
@@ -2275,7 +1931,7 @@
         
         
         
-        <content>MISTER MISTER IOPUTAAAA AAAAAAA</content>
+        <content>mister mister</content>
                                                                                         
         
         
@@ -2286,7 +1942,7 @@
         
         
         
-        <timestamp>2024-10-28T18:51:06.627689200</timestamp>
+        <timestamp>2024-10-28T12:24:00.171691800</timestamp>
                                                                                     
     
     
@@ -2318,7 +1974,7 @@
         
         
         
-        <sender>Chusma2</sender>
+        <sender>Pedro</sender>
                                                                                 
         
         
@@ -2328,7 +1984,7 @@
         
         
         
-        <receiver>Chusma3</receiver>
+        <receiver>Manolo</receiver>
                                                                                 
         
         
@@ -2338,7 +1994,7 @@
         
         
         
-        <content>PAGAME LOS DINEROS MAMONAZO</content>
+        <content>si</content>
                                                                                 
         
         
@@ -2348,7 +2004,7 @@
         
         
         
-        <timestamp>2024-10-28T18:52:24.175142</timestamp>
+        <timestamp>2024-10-28T16:23:06.530465600</timestamp>
                                                                             
     
     
@@ -2377,7 +2033,7 @@
         
         
         
-        <sender>Chusma7</sender>
+        <sender>Chusma3</sender>
                                                                         
         
         
@@ -2386,7 +2042,7 @@
         
         
         
-        <receiver>Chusma6</receiver>
+        <receiver>Chusma2</receiver>
                                                                         
         
         
@@ -2395,7 +2051,7 @@
         
         
         
-        <content>HOLA HOLA HOLA AUAUAU</content>
+        <content>MISTER MISTER IOPUTAAAA AAAAAAA</content>
                                                                         
         
         
@@ -2404,7 +2060,7 @@
         
         
         
-        <timestamp>2024-10-28T19:33:04.648668200</timestamp>
+        <timestamp>2024-10-28T18:51:06.627689200</timestamp>
                                                                     
     
     
@@ -2430,7 +2086,7 @@
         
         
         
-        <sender>Chusma6</sender>
+        <sender>Chusma2</sender>
                                                                 
         
         
@@ -2438,7 +2094,7 @@
         
         
         
-        <receiver>Chusma7</receiver>
+        <receiver>Chusma3</receiver>
                                                                 
         
         
@@ -2446,7 +2102,7 @@
         
         
         
-        <content>HOLA HOLS HOLA HJOLA JOLA OLA JOLA</content>
+        <content>PAGAME LOS DINEROS MAMONAZO</content>
                                                                 
         
         
@@ -2454,7 +2110,7 @@
         
         
         
-        <timestamp>2024-10-28T19:36:51.407715</timestamp>
+        <timestamp>2024-10-28T18:52:24.175142</timestamp>
                                                             
     
     
@@ -2477,28 +2133,28 @@
         
         
         
-        <sender>Tate</sender>
+        <sender>Chusma7</sender>
                                                         
         
         
         
         
         
-        <receiver>Manolo</receiver>
+        <receiver>Chusma6</receiver>
                                                         
         
         
         
         
         
-        <content>d</content>
+        <content>HOLA HOLA HOLA AUAUAU</content>
                                                         
         
         
         
         
         
-        <timestamp>2024-10-28T22:51:27.629867800</timestamp>
+        <timestamp>2024-10-28T19:33:04.648668200</timestamp>
                                                     
     
     
@@ -2518,25 +2174,25 @@
         
         
         
-        <sender>Pepe</sender>
+        <sender>Chusma6</sender>
                                                 
         
         
         
         
-        <receiver>Jose</receiver>
+        <receiver>Chusma7</receiver>
                                                 
         
         
         
         
-        <content>hola</content>
+        <content>HOLA HOLS HOLA HJOLA JOLA OLA JOLA</content>
                                                 
         
         
         
         
-        <timestamp>2024-10-28T23:16:44.133765400</timestamp>
+        <timestamp>2024-10-28T19:36:51.407715</timestamp>
                                             
     
     
@@ -2553,7 +2209,7 @@
         
         
         
-        <sender>Jose</sender>
+        <sender>Tate</sender>
                                         
         
         
@@ -2563,12 +2219,12 @@
         
         
         
-        <content>&lt;sdfasf</content>
+        <content>d</content>
                                         
         
         
         
-        <timestamp>2024-10-28T23:21:11.977199800</timestamp>
+        <timestamp>2024-10-28T22:51:27.629867800</timestamp>
                                     
     
     
@@ -2582,19 +2238,19 @@
                                 
         
         
-        <sender>Jose</sender>
+        <sender>Pepe</sender>
                                 
         
         
-        <receiver>Manolo</receiver>
+        <receiver>Jose</receiver>
                                 
         
         
-        <content>saddasdas</content>
+        <content>hola</content>
                                 
         
         
-        <timestamp>2024-10-28T23:21:13.978846700</timestamp>
+        <timestamp>2024-10-28T23:16:44.133765400</timestamp>
                             
     
     
@@ -2605,16 +2261,16 @@
     <message>
                         
         
-        <sender>Manolo</sender>
+        <sender>Jose</sender>
                         
         
-        <receiver>Pito2</receiver>
+        <receiver>Manolo</receiver>
                         
         
-        <content>asdfsf</content>
+        <content>&lt;sdfasf</content>
                         
         
-        <timestamp>2024-10-28T23:48:12.963392100</timestamp>
+        <timestamp>2024-10-28T23:21:11.977199800</timestamp>
                     
     
     </message>
@@ -2622,20 +2278,20 @@
     
     <message>
                 
-        <sender>Pedro</sender>
+        <sender>Jose</sender>
                 
         <receiver>Manolo</receiver>
                 
-        <content>siss</content>
+        <content>saddasdas</content>
                 
-        <timestamp>2024-10-29T16:47:21.455027600</timestamp>
+        <timestamp>2024-10-28T23:21:13.978846700</timestamp>
             
     </message>
     
     <message>
-        <sender>Pedro</sender>
-        <receiver>Manolo</receiver>
-        <content>tonto</content>
-        <timestamp>2024-10-29T17:07:43.735759300</timestamp>
+        <sender>Manolo</sender>
+        <receiver>Pito2</receiver>
+        <content>asdfsf</content>
+        <timestamp>2024-10-28T23:48:12.963392100</timestamp>
     </message>
 </messages>

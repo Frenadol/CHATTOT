@@ -1,0 +1,13 @@
+.button-style {
+    -fx-background-color: #4CAF50; /* Color de fondo */
+    -fx-text-fill: white; /* Color del texto */
+    -fx-padding: 10px 20px; /* Espaciado interno */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0.0, 0, 1); /* Sombra */
+}
+
+.button-style:hover {
+    -fx-background-color: #45a049; /* Color de fondo al pasar el mouse */
+}
