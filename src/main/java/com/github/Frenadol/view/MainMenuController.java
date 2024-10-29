@@ -137,13 +137,6 @@ public class MainMenuController implements Initializable {
     private void ListUsers() {
         List<User> users = XmlReader.getUsersFromXML(filePath);
         User currentUser = SessionManager.getInstance().getCurrentUser();
-
-        if (users.isEmpty()) {
-            System.out.println("No users found in XML.");
-        } else {
-            System.out.println("Users loaded: " + users.size());
-        }
-
         if (currentUser != null) {
             List<User> contacts = currentUser.getContacts();
             users.removeIf(user -> user.getName().equals(currentUser.getName()) || contacts.stream().anyMatch(contact -> contact.getName().equals(user.getName())));
@@ -153,7 +146,12 @@ public class MainMenuController implements Initializable {
         usersTable.setItems(userList);
     }
 
-
+    /**
+     * Loads the chat screen by initializing the Chat.fxml layout.
+     * Clears the current children of the Panel and adds the chat pane.
+     * Sets the preferred width and height of the chat pane to match the Panel's dimensions.
+     * Displays an alert if an error occurs during loading.
+     */
     @FXML
     private void loadChatScreen() {
         try {
@@ -179,57 +177,62 @@ public class MainMenuController implements Initializable {
     @FXML
     private void confirmAndAddContact() {
         User selectedContact = usersTable.getSelectionModel().getSelectedItem();
+        User currentUser = SessionManager.getInstance().getCurrentUser();
 
-        if (selectedContact != null) {
-            User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (selectedContact == null) {
+            showAlert("Por favor selecciona un usuario para agregar como contacto.");
+            return;
+        }
 
-            if (currentUser != null && currentUser.getContacts().contains(selectedContact)) {
-                showAlert("Este contacto ya está en tu lista.");
-                return;
-            }
+        if (currentUser == null) {
+            showAlert("No se encontró al usuario actual en la sesión.");
+            return;
+        }
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmación para Agregar");
-            alert.setHeaderText("Estás a punto de agregar a " + selectedContact.getName() + " como contacto");
-            alert.setContentText("¿Estás seguro de que deseas agregar a este usuario a tus contactos?");
+        boolean contactAlreadyExists = currentUser.getContacts().stream()
+                .anyMatch(contact -> contact.getName().equalsIgnoreCase(selectedContact.getName()));
 
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                if (currentUser != null) {
-                    if (!currentUser.getContacts().contains(selectedContact)) {
-                        currentUser.addContactToList(selectedContact);
+        if (contactAlreadyExists) {
+            showAlert("El usuario ya está en tu lista de contactos. No es necesario agregarlo de nuevo.");
+            return;
+        }
 
-                        List<User> users = XmlReader.getUsersFromXML(filePath);
-                        if (users != null) {
-                            for (User user : users) {
-                                if (user.getName().equals(currentUser.getName())) {
-                                    List<User> existingContacts = user.getContacts();
-                                    if (!existingContacts.contains(selectedContact)) {
-                                        existingContacts.add(selectedContact);
-                                    }
-                                    user.setContacts(existingContacts);
-                                    break;
-                                }
-                            }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación para Agregar");
+        alert.setHeaderText("Estás a punto de agregar a " + selectedContact.getName() + " como contacto");
+        alert.setContentText("¿Estás seguro de que deseas agregar a este usuario a tus contactos?");
+        Optional<ButtonType> result = alert.showAndWait();
 
-                            XmlReader.saveUsersToXML(users, filePath);
-                        }
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            currentUser.addContactToList(selectedContact);
 
-                        showAlert("Contacto agregado exitosamente.");
-
-                        loadContactsForCurrentUser();
-
-                        userList.remove(selectedContact);
-                        usersTable.setItems(userList);
-                    } else {
-                        showAlert("Este contacto ya está en tu lista.");
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equalsIgnoreCase(currentUser.getName())) {
+                    List<User> existingContacts = user.getContacts();
+                    if (!existingContacts.contains(selectedContact)) {
+                        existingContacts.add(selectedContact);
                     }
+                    user.setContacts(existingContacts);
+                    break;
                 }
             }
-        } else {
-            showAlert("Por favor selecciona un usuario para agregar como contacto.");
+            XmlReader.saveUsersToXML(users, filePath);
+
+            Optional<User> updatedCurrentUser = users.stream()
+                    .filter(user -> user.getName().equals(currentUser.getName()))
+                    .findFirst();
+            updatedCurrentUser.ifPresent(user -> currentUser.setContacts(user.getContacts()));
+
+            showAlert("Contacto agregado exitosamente.");
+            loadContactsForCurrentUser();
+            userList.remove(selectedContact);
+            usersTable.setItems(userList);
         }
     }
+
+
+
 
     /**
      * Loads the contacts for the current user and populates the contacts table.
@@ -240,6 +243,8 @@ public class MainMenuController implements Initializable {
             List<User> users = XmlReader.getUsersFromXML(filePath);
             for (User user : users) {
                 if (user.getName().equals(currentUser.getName())) {
+                    currentUser.setContacts(user.getContacts());
+
                     contactList.clear();
                     contactList.addAll(user.getContacts());
                     contactsTable.setItems(contactList);
@@ -303,24 +308,6 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Refreshes the contacts table by reloading the contacts for the current user.
-     */
-    private void refreshContactsTable() {
-        User currentUser = SessionManager.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            List<User> users = XmlReader.getUsersFromXML(filePath);
-            for (User user : users) {
-                if (user.getName().equals(currentUser.getName())) {
-                    contactList.clear();
-                    contactList.addAll(user.getContacts());
-                    contactsTable.setItems(contactList);
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
      * Applies a circular clip to an ImageView.
      *
      * @param imageView the ImageView to clip.
@@ -342,4 +329,7 @@ public class MainMenuController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+
 }

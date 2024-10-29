@@ -49,17 +49,17 @@ public class RegisterUserController {
         String pass = textPassword.getText();
 
         if (username.isEmpty() || pass.isEmpty()) {
-            showAlert("Please fill in all fields.");
+            showAlert("Porfavor rellena todos los datos.");
             return;
         }
 
         if (imageFile == null) {
-            showAlert("Please choose a profile picture.");
+            showAlert("Porfavor elije una foto de perfilñ.");
             return;
         }
 
         if (!isPasswordSecure(pass)) {
-            showAlert("Password must be at least 8 characters long, with an uppercase letter and a digit.");
+            showAlert("La contraseña debe tener al menos 8 caracteres, con una letra mayúscula y un número.");
             return;
         }
 
@@ -67,7 +67,7 @@ public class RegisterUserController {
             File xmlFile = new File(USERS_FILE);
 
             if (isUserExists(username, xmlFile)) {
-                showAlert("Username already in use. Please choose another.");
+                showAlert("El nombre de usuario ya existe. Por favor elige otro.");
                 return;
             }
 
@@ -75,7 +75,7 @@ public class RegisterUserController {
             try {
                 hashedPassword = Security.hashPassword(pass);
             } catch (NoSuchAlgorithmException e) {
-                showAlert("Error hashing the password.");
+                showAlert("Error al hashear la contraseña: " + e.getMessage() + ".");
                 return;
             }
 
@@ -85,10 +85,10 @@ public class RegisterUserController {
             }
 
             addUserToXML(username, hashedPassword, imageData, xmlFile);
-            showAlert("User registered successfully!");
+            showAlert("Usuario registrado!");
             App.setRoot("primary");
         } catch (Exception e) {
-            showAlert("Error registering user: " + e.getMessage());
+            showAlert("Error al registrar el usuario: " + e.getMessage());
         }
     }
 
