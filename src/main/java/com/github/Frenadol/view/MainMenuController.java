@@ -196,31 +196,33 @@ public class MainMenuController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 if (currentUser != null) {
-                    // Agrega el contacto a la lista del usuario actual
-                    currentUser.addContactToList(selectedContact);
-                    List<User> users = XmlReader.getUsersFromXML(filePath);
-                    if (users != null) {
-                        for (User user : users) {
-                            if (user.getName().equals(currentUser.getName())) {
-                                List<User> existingContacts = user.getContacts();
-                                if (!existingContacts.contains(selectedContact)) {
-                                    existingContacts.add(selectedContact);
-                                    user.setContacts(existingContacts);
-                                }
-                                break;
-                            }
-                        }
+                    if (!currentUser.getContacts().contains(selectedContact)) {
+                        currentUser.addContactToList(selectedContact);
 
-                        XmlReader.saveUsersToXML(users, filePath);
+                        List<User> users = XmlReader.getUsersFromXML(filePath);
+                        if (users != null) {
+                            for (User user : users) {
+                                if (user.getName().equals(currentUser.getName())) {
+                                    List<User> existingContacts = user.getContacts();
+                                    if (!existingContacts.contains(selectedContact)) {
+                                        existingContacts.add(selectedContact);
+                                    }
+                                    user.setContacts(existingContacts);
+                                    break;
+                                }
+                            }
+
+                            XmlReader.saveUsersToXML(users, filePath);
+                        }
 
                         showAlert("Contacto agregado exitosamente.");
 
-                        // Remueve el contacto de la lista de usuarios disponibles
+                        loadContactsForCurrentUser();
+
                         userList.remove(selectedContact);
                         usersTable.setItems(userList);
-
-                        // Carga los contactos actualizados del usuario actual
-                        loadContactsForCurrentUser();
+                    } else {
+                        showAlert("Este contacto ya está en tu lista.");
                     }
                 }
             }
