@@ -1,6 +1,7 @@
 package com.github.Frenadol.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +10,6 @@ public class User {
     private String password;
     private byte[] profileImage;
     private List<User> contacts;
-
 
     public User(String name, String password, byte[] profileImage, List<User> contacts) {
         this.name = name;
@@ -37,9 +37,6 @@ public class User {
     }
 
     public List<User> getContacts() {
-        if (contacts == null) {
-            contacts = new ArrayList<>();
-        }
         return contacts;
     }
 
@@ -60,31 +57,41 @@ public class User {
     }
 
     public void addContactToList(User contact) {
-        if (contacts == null) {
-            contacts = new ArrayList<>();
+        if (!contacts.contains(contact)) {
+            contacts.add(contact);
         }
-        contacts.add(contact);
     }
-
+    /**
+     * Checks if this User object is equal to another object.
+     * Two User objects are considered equal if they are the same instance
+     * or if they are of the same class and have the same name.
+     *
+     * @param obj the object to compare with this User
+     * @return true if the objects are equal; false otherwise
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(name, user.name);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User other = (User) obj;
+        return getName().equals(other.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, password, Arrays.hashCode(profileImage), contacts);
     }
 
     @Override
     public String toString() {
-        return "========== Informacion del usuario ==========\n" +
-                "Name          : " + name + "\n" +
-                "Password      : " + password + "\n" +
-                "Profile Image : " + profileImage + "\n" +
+        return "========== Información del usuario ==========\n" +
+                "Nombre        : " + name + "\n" +
+                "Contraseña    : " + password + "\n" +
+                "Imagen Perfil : " + (profileImage != null ? "Disponible" : "No disponible") + "\n" +
                 "================================";
     }
 }
