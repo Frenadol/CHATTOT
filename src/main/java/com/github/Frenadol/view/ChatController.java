@@ -1,6 +1,5 @@
 package com.github.Frenadol.view;
 
-import com.github.Frenadol.App;
 import com.github.Frenadol.model.User;
 import com.github.Frenadol.model.Message;
 import com.github.Frenadol.utils.XmlReader;
@@ -8,8 +7,8 @@ import com.github.Frenadol.utils.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -33,15 +32,13 @@ import java.util.logging.Logger;
 
 public class ChatController implements Initializable {
     @FXML
-    private DialogPane chatDialogPane;
+    private VBox VboxChat;
     @FXML
     private ListView<String> messageList;
     @FXML
     private TextField messageField;
     @FXML
     private Button sendButton;
-    @FXML
-    private Button BackButton;
 
     private User currentUser;
     private User selectedUser;
@@ -52,15 +49,6 @@ public class ChatController implements Initializable {
     private static final Logger logger = Logger.getLogger(ChatController.class.getName());
 
     SessionManager sessionManager = SessionManager.getInstance();
-
-    /**
-     * Navigates back to the main menu.
-     *
-     * @throws IOException if there is an issue changing the view.
-     */
-    public void goBack() throws IOException {
-        App.setRoot("MainMenu");
-    }
 
     /**
      * Initializes the controller.
@@ -243,7 +231,7 @@ public class ChatController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Guardar Conversación");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Texto (*.txt)", "*.txt"));
-            File file = fileChooser.showSaveDialog((Stage) messageList.getScene().getWindow());
+            File file = fileChooser.showSaveDialog(messageList.getScene().getWindow());
 
             if (file != null) {
                 try (FileOutputStream fos = new FileOutputStream(file);

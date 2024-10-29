@@ -9,11 +9,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
@@ -53,9 +55,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button BackButton;
     @FXML
-    private Button changeNameButton;
-    @FXML
-    private Button changePhotoButton;
+    private Pane Panel;
 
     private ObservableList<User> userList = FXCollections.observableArrayList();
     String filePath = "UsersData.xml";
@@ -128,8 +128,6 @@ public class MainMenuController implements Initializable {
             NameUser.setText(currentUser.getName());
             loadContactsForCurrentUser();
         }
-
-        changePhotoButton.setOnAction(event -> changeUserPhoto());
     }
 
     /**
@@ -153,6 +151,25 @@ public class MainMenuController implements Initializable {
 
         this.userList = FXCollections.observableArrayList(users);
         usersTable.setItems(userList);
+    }
+
+
+    @FXML
+    private void loadChatScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/Frenadol/Chat.fxml"));
+            Pane chatPane = loader.load();
+            Panel.getChildren().clear();
+            Panel.getChildren().add(chatPane);
+
+            double paneWidth = Panel.getWidth();
+            double paneHeight = Panel.getHeight();
+
+            chatPane.setPrefWidth(paneWidth);
+            chatPane.setPrefHeight(paneHeight);
+        } catch (IOException e) {
+            showAlert("Ocurrió un error al cargar la pantalla de chat: " + e.getMessage());
+        }
     }
 
     /**
@@ -179,31 +196,33 @@ public class MainMenuController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 if (currentUser != null) {
-                    // Agrega el contacto a la lista del usuario actual
-                    currentUser.addContactToList(selectedContact);
-                    List<User> users = XmlReader.getUsersFromXML(filePath);
-                    if (users != null) {
-                        for (User user : users) {
-                            if (user.getName().equals(currentUser.getName())) {
-                                List<User> existingContacts = user.getContacts();
-                                if (!existingContacts.contains(selectedContact)) {
-                                    existingContacts.add(selectedContact);
-                                    user.setContacts(existingContacts);
-                                }
-                                break;
-                            }
-                        }
+                    if (!currentUser.getContacts().contains(selectedContact)) {
+                        currentUser.addContactToList(selectedContact);
 
-                        XmlReader.saveUsersToXML(users, filePath);
+                        List<User> users = XmlReader.getUsersFromXML(filePath);
+                        if (users != null) {
+                            for (User user : users) {
+                                if (user.getName().equals(currentUser.getName())) {
+                                    List<User> existingContacts = user.getContacts();
+                                    if (!existingContacts.contains(selectedContact)) {
+                                        existingContacts.add(selectedContact);
+                                    }
+                                    user.setContacts(existingContacts);
+                                    break;
+                                }
+                            }
+
+                            XmlReader.saveUsersToXML(users, filePath);
+                        }
 
                         showAlert("Contacto agregado exitosamente.");
 
-                        // Remueve el contacto de la lista de usuarios disponibles
+                        loadContactsForCurrentUser();
+
                         userList.remove(selectedContact);
                         usersTable.setItems(userList);
-
-                        // Carga los contactos actualizados del usuario actual
-                        loadContactsForCurrentUser();
+                    } else {
+                        showAlert("Este contacto ya está en tu lista.");
                     }
                 }
             }
@@ -234,34 +253,30 @@ public class MainMenuController implements Initializable {
      * Initiates a chat with the selected contact if they are mutually in each other's contact lists.
      */
     @FXML
-    private void chattedWithContact() {
-        try {
-            User selectedContact = contactsTable.getSelectionModel().getSelectedItem();
-            User currentUser = SessionManager.getInstance().getCurrentUser();
+    private void chattedWithContact(){
+        User selectedContact = contactsTable.getSelectionModel().getSelectedItem();
+        User currentUser = SessionManager.getInstance().getCurrentUser();
 
-            if (selectedContact != null && currentUser != null) {
-                List<User> allUsers = XmlReader.getUsersFromXML(filePath);
+        if (selectedContact != null && currentUser != null) {
+            List<User> allUsers = XmlReader.getUsersFromXML(filePath);
 
-                User updatedSelectedContact = allUsers.stream().filter(user -> user.getName().equals(selectedContact.getName())).findFirst().orElse(null);
-                User updatedCurrentUser = allUsers.stream().filter(user -> user.getName().equals(currentUser.getName())).findFirst().orElse(null);
+            User updatedSelectedContact = allUsers.stream().filter(user -> user.getName().equals(selectedContact.getName())).findFirst().orElse(null);
+            User updatedCurrentUser = allUsers.stream().filter(user -> user.getName().equals(currentUser.getName())).findFirst().orElse(null);
 
-                if (updatedSelectedContact != null && updatedCurrentUser != null) {
-                    boolean currentUserHasContact = updatedCurrentUser.getContacts().contains(updatedSelectedContact);
-                    boolean contactHasCurrentUser = updatedSelectedContact.getContacts().contains(updatedCurrentUser);
+            if (updatedSelectedContact != null && updatedCurrentUser != null) {
+                boolean currentUserHasContact = updatedCurrentUser.getContacts().contains(updatedSelectedContact);
+                boolean contactHasCurrentUser = updatedSelectedContact.getContacts().contains(updatedCurrentUser);
 
-                    if (currentUserHasContact && contactHasCurrentUser) {
-                        SessionManager.getInstance().setSelectedUser(updatedSelectedContact);
-                        showAlert("Chat iniciado con " + updatedSelectedContact.getName());
-                        App.setRoot("Chat");
-                    } else {
-                        showAlert("No puedes iniciar un chat con " + updatedSelectedContact.getName() + " porque no es tu contacto.");
-                    }
+                if (currentUserHasContact && contactHasCurrentUser) {
+                    SessionManager.getInstance().setSelectedUser(updatedSelectedContact);
+                    showAlert("Chat iniciado con " + updatedSelectedContact.getName());
+                    loadChatScreen();
+                } else {
+                    showAlert("No puedes iniciar un chat con " + updatedSelectedContact.getName() + " porque no es tu contacto.");
                 }
-            } else {
-                showAlert("Por favor selecciona un contacto para chatear.");
             }
-        } catch (IOException e) {
-            showAlert("Ocurrió un error al iniciar el chat: " + e.getMessage());
+        } else {
+            showAlert("Por favor selecciona un contacto para chatear.");
         }
     }
 
@@ -271,49 +286,17 @@ public class MainMenuController implements Initializable {
     private void loadCurrentUserImage() {
         User currentUser = SessionManager.getInstance().getCurrentUser();
         if (currentUser != null) {
-            byte[] visualData = currentUser.getProfileImage();
-            if (visualData != null && visualData.length > 0) {
-                ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
-                Image image = new Image(bis);
-                userImage.setImage(image);
-                userImage.setFitWidth(100);
-                userImage.setFitHeight(100);
-                applyCircularClip(userImage);
-            }
-        }
-    }
-
-    /**
-     * Changes the current user's profile photo after confirmation.
-     */
-    @FXML
-    private void changeUserPhoto() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleccionar Foto de Perfil");
-        File file = fileChooser.showOpenDialog(anchorPane.getScene().getWindow());
-
-        if (file != null) {
-            User currentUser = SessionManager.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                try (FileInputStream fis = new FileInputStream(file)) {
-                    byte[] imageData = new byte[(int) file.length()];
-                    fis.read(imageData);
-                    currentUser.setProfileImage(imageData);
-                    showAlert("Foto de perfil cambiada exitosamente.");
-                    loadCurrentUserImage();
-
-                    List<User> users = XmlReader.getUsersFromXML(filePath);
-                    for (User user : users) {
-                        if (user.getName().equals(currentUser.getName())) {
-                            user.setProfileImage(imageData);
-                            break;
-                        }
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equals(currentUser.getName())) {
+                    byte[] visualData = user.getProfileImage();
+                    if (visualData != null && visualData.length > 0) {
+                        ByteArrayInputStream bis = new ByteArrayInputStream(visualData);
+                        Image image = new Image(bis);
+                        userImage.setImage(image);
+                        applyCircularClip(userImage);
                     }
-                    XmlReader.saveUsersToXML(users, filePath);
-
-                    refreshContactsTable();
-                } catch (IOException e) {
-                    showAlert("Ocurrió un error al cargar la foto: " + e.getMessage());
+                    break;
                 }
             }
         }

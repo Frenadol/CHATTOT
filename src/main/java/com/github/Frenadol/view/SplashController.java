@@ -29,10 +29,7 @@ public class SplashController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         CompletableFuture.runAsync(() -> {
             try {
-                // Simulate splash screen duration
                 Thread.sleep(600);
-
-                // Switch to the Primary view on the JavaFX Application Thread
                 Platform.runLater(() -> {
                     try {
                         App.setRoot("Primary");

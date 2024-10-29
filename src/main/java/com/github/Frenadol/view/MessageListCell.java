@@ -28,10 +28,10 @@ public class MessageListCell extends ListCell<String> {
     protected void updateItem(String item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null && !empty) {
-            if (item.startsWith("Para ")) { // Cambiado "To " a "Para "
+            if (item.startsWith("Para ")) {
                 content.setAlignment(Pos.CENTER_RIGHT);
                 messageLabel.setStyle("-fx-background-color: lightblue; -fx-padding: 5px;");
-            } else if (item.startsWith("De ")) { // Cambiado "From " a "De "
+            } else if (item.startsWith("De ")) {
                 content.setAlignment(Pos.CENTER_LEFT);
                 messageLabel.setStyle("-fx-background-color: lightgreen; -fx-padding: 5px;");
             }
