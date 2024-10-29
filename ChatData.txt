@@ -1,1 +1,18 @@
+<<<<<<< HEAD
 [2024-10-29T09:00:47.971866500] Prueba2 a Prueba1: HOLA
+=======
+[2024-10-25T11:29:31.322336500] Pedro a Manolo: hola
+[2024-10-25T11:29:45.835750800] Pedro a Manolo: si
+[2024-10-25T16:16:57.551820200] Pedro a Manolo: no
+[2024-10-27T13:42:17.641940400] Pedro a Manolo: chupamela
+[2024-10-27T13:45:03.664612500] Pedro a Manolo: poya
+[2024-10-27T14:23:45.089390800] Manolo a Pedro: si
+[2024-10-27T14:30:26.867013400] Pedro a Manolo: no
+[2024-10-27T14:31:02.733527800] Manolo a Pedro: si
+[2024-10-28T16:23:06.530465600] Pedro a Manolo: si
+[2024-10-28T22:51:27.629867800] Tate a Manolo: d
+[2024-10-28T23:16:44.133765400] Pepe a Jose: hola
+[2024-10-28T23:21:11.977199800] Jose a Manolo: <sdfasf
+[2024-10-28T23:21:13.978846700] Jose a Manolo: saddasdas
+[2024-10-28T23:48:12.963392100] Manolo a Pito2: asdfsf
+>>>>>>> b2da6ff45dbef881f6525f2b53c732578f7d945f
