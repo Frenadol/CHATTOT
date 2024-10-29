@@ -1,4 +1,3 @@
-// User.java
 package com.github.Frenadol.model;
 
 import java.util.ArrayList;

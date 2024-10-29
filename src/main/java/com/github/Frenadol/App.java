@@ -1,4 +1,3 @@
-// Modificar la clase App para agregar una transición de disolución
 package com.github.Frenadol;
 
 import javafx.animation.FadeTransition;

@@ -9,7 +9,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -217,8 +216,8 @@ public class RegisterUserController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
 
-        alert.getDialogPane().setPrefSize(400, 200); // Adjusts the width and height as needed
-        alert.getDialogPane().setStyle("-fx-font-size: 14px;"); // Adjusts font size if needed
+        alert.getDialogPane().setPrefSize(400, 200);
+        alert.getDialogPane().setStyle("-fx-font-size: 14px;");
 
         alert.show();
     }
@@ -243,7 +242,7 @@ public class RegisterUserController {
                 InputStream is = new FileInputStream(imageFile);
                 Image image = new Image(is);
                 applyCircularClip(imageView);
-                imageView.setImage(image); // Display the image in the ImageView
+                imageView.setImage(image);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

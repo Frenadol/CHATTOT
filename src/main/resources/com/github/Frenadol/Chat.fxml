@@ -9,7 +9,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.ChatController">
     <children>
-        <VBox alignment="CENTER" spacing="10.0" styleClass="Chat" stylesheets="@../../../Background.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <VBox fx:id="VboxChat" alignment="CENTER" spacing="10.0" styleClass="Chat" stylesheets="@../../../Background.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ListView fx:id="messageList" prefHeight="200.0" prefWidth="480.0" styleClass="List" stylesheets="@../../../Background.css" />
                 <TextField fx:id="messageField" prefHeight="25.0" prefWidth="379.0" />
@@ -17,7 +17,6 @@
                     <children>
                         <Button fx:id="sendButton" onAction="#sendMessage" text="Enviar" />
                         <Button mnemonicParsing="false" onMouseClicked="#exportConversationToTXT" prefHeight="26.0" prefWidth="68.0" text="Exportar" />
-                        <Button fx:id="BackButton" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="26.0" prefWidth="59.0" text="Volver" />
                     </children>
                 </HBox>
             </children>

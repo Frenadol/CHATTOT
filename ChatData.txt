@@ -12,3 +12,5 @@
 [2024-10-28T23:21:11.977199800] Jose a Manolo: <sdfasf
 [2024-10-28T23:21:13.978846700] Jose a Manolo: saddasdas
 [2024-10-28T23:48:12.963392100] Manolo a Pito2: asdfsf
+[2024-10-29T16:47:21.455027600] Pedro a Manolo: siss
+[2024-10-29T17:07:43.735759300] Pedro a Manolo: tonto
