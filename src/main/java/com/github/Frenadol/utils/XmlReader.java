@@ -214,7 +214,7 @@ public class XmlReader {
         }
         return null;
     }
-    public static boolean isUserExists(String username, String filePath) throws Exception {
+    public static boolean isUserExists(String username, String filePath, User currentUser) throws Exception {
         File xmlFile = new File(filePath);
         if (!xmlFile.exists()) return false;
 
@@ -232,12 +232,26 @@ public class XmlReader {
                 Element element = (Element) node;
                 String existingUsername = element.getElementsByTagName("username").item(0).getTextContent();
 
-                if (existingUsername.equals(username)) {
-                    return true;
+                if (existingUsername.equals(currentUser.getName())) {
+                    NodeList contacts = element.getElementsByTagName("contacts");
+                    if (contacts.getLength() > 0) {
+                        NodeList contactList = contacts.item(0).getChildNodes();
+                        for (int j = 0; j < contactList.getLength(); j++) {
+                            Node contactNode = contactList.item(j);
+                            if (contactNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element contactElement = (Element) contactNode;
+                                String contactUsername = contactElement.getTextContent();
+                                if (contactUsername.equals(username)) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
         return false;
     }
+
 }
