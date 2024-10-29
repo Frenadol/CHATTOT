@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<messages>
+    <message>
+        <sender>Prueba2</sender>
+        <receiver>Prueba1</receiver>
+        <content>HOLA</content>
+        <timestamp>2024-10-29T09:00:47.971866500</timestamp>
+    </message>
+</messages>

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="301.0" prefWidth="439.0" spacing="20.0" styleClass="Primary" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.PrimaryController">
+<VBox alignment="CENTER" prefHeight="301.0" prefWidth="439.0" styleClass="Primary" stylesheets="@../../../Background.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.Frenadol.view.PrimaryController" spacing="20.0">
    <children>
       <Label text="CHATTOT">
          <font>
@@ -18,6 +18,6 @@
          </font>
       </Label>
       <Button fx:id="registerButtom" onAction="#switchToRegister" prefHeight="38.0" prefWidth="99.0" text="Crear Cuenta" />
-      <Button fx:id="startButton" onAction="#switchToInicie" prefHeight="38.0" prefWidth="99.0" text="Iniciar Sesion" />
+      <Button fx:id="inicieButtom" onAction="#switchToInicie" prefHeight="38.0" prefWidth="99.0" text="Iniciar Sesion" />
    </children>
 </VBox>

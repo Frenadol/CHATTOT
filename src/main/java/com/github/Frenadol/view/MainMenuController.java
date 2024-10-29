@@ -129,8 +129,6 @@ public class MainMenuController implements Initializable {
             loadContactsForCurrentUser();
         }
 
-        changeNameButton.setOnAction(event -> changeUserName());
-
         changePhotoButton.setOnAction(event -> changeUserPhoto());
     }
 
@@ -142,6 +140,11 @@ public class MainMenuController implements Initializable {
         List<User> users = XmlReader.getUsersFromXML(filePath);
         User currentUser = SessionManager.getInstance().getCurrentUser();
 
+        if (users.isEmpty()) {
+            System.out.println("No users found in XML.");
+        } else {
+            System.out.println("Users loaded: " + users.size());
+        }
 
         if (currentUser != null) {
             List<User> contacts = currentUser.getContacts();
@@ -176,33 +179,31 @@ public class MainMenuController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 if (currentUser != null) {
-                    if (!currentUser.getContacts().contains(selectedContact)) {
-                        currentUser.addContactToList(selectedContact);
-
-                        List<User> users = XmlReader.getUsersFromXML(filePath);
-                        if (users != null) {
-                            for (User user : users) {
-                                if (user.getName().equals(currentUser.getName())) {
-                                    List<User> existingContacts = user.getContacts();
-                                    if (!existingContacts.contains(selectedContact)) {
-                                        existingContacts.add(selectedContact);
-                                    }
+                    // Agrega el contacto a la lista del usuario actual
+                    currentUser.addContactToList(selectedContact);
+                    List<User> users = XmlReader.getUsersFromXML(filePath);
+                    if (users != null) {
+                        for (User user : users) {
+                            if (user.getName().equals(currentUser.getName())) {
+                                List<User> existingContacts = user.getContacts();
+                                if (!existingContacts.contains(selectedContact)) {
+                                    existingContacts.add(selectedContact);
                                     user.setContacts(existingContacts);
-                                    break;
                                 }
+                                break;
                             }
-
-                            XmlReader.saveUsersToXML(users, filePath);
                         }
+
+                        XmlReader.saveUsersToXML(users, filePath);
 
                         showAlert("Contacto agregado exitosamente.");
 
-                        loadContactsForCurrentUser();
-
+                        // Remueve el contacto de la lista de usuarios disponibles
                         userList.remove(selectedContact);
                         usersTable.setItems(userList);
-                    } else {
-                        showAlert("Este contacto ya está en tu lista.");
+
+                        // Carga los contactos actualizados del usuario actual
+                        loadContactsForCurrentUser();
                     }
                 }
             }
@@ -278,32 +279,8 @@ public class MainMenuController implements Initializable {
                 userImage.setFitWidth(100);
                 userImage.setFitHeight(100);
                 applyCircularClip(userImage);
-            } else {
-                applyCircularClip(userImage);
             }
         }
-    }
-
-
-    /**
-     * Changes the current user's name after confirmation.
-     */
-    @FXML
-    private void changeUserName() {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Cambiar Nombre");
-        dialog.setHeaderText("Ingresa el nuevo nombre:");
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(newName -> {
-            User currentUser = SessionManager.getInstance().getCurrentUser();
-            if (currentUser != null) {
-                currentUser.setName(newName);
-                showAlert("Nombre cambiado exitosamente.");
-                XmlReader.saveUsersToXML(XmlReader.getUsersFromXML(filePath), filePath);
-                loadContactsForCurrentUser();
-                NameUser.setText(currentUser.getName());
-            }
-        });
     }
 
     /**
@@ -324,9 +301,37 @@ public class MainMenuController implements Initializable {
                     currentUser.setProfileImage(imageData);
                     showAlert("Foto de perfil cambiada exitosamente.");
                     loadCurrentUserImage();
-                    XmlReader.saveUsersToXML(XmlReader.getUsersFromXML(filePath), filePath);
+
+                    List<User> users = XmlReader.getUsersFromXML(filePath);
+                    for (User user : users) {
+                        if (user.getName().equals(currentUser.getName())) {
+                            user.setProfileImage(imageData);
+                            break;
+                        }
+                    }
+                    XmlReader.saveUsersToXML(users, filePath);
+
+                    refreshContactsTable();
                 } catch (IOException e) {
                     showAlert("Ocurrió un error al cargar la foto: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    /**
+     * Refreshes the contacts table by reloading the contacts for the current user.
+     */
+    private void refreshContactsTable() {
+        User currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            List<User> users = XmlReader.getUsersFromXML(filePath);
+            for (User user : users) {
+                if (user.getName().equals(currentUser.getName())) {
+                    contactList.clear();
+                    contactList.addAll(user.getContacts());
+                    contactsTable.setItems(contactList);
+                    break;
                 }
             }
         }

@@ -121,7 +121,7 @@ public class ChatController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error al cargar los mensajes", e);
+            logger.log(Level.SEVERE, "Error loading messages", e);
             showAlert("Error al cargar mensajes", "No se pudieron cargar los mensajes", e.getMessage());
         }
     }
@@ -211,7 +211,7 @@ public class ChatController implements Initializable {
                 messageList.getItems().add("A " + selectedUser.getName() + ": " + content);
                 messageField.clear();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error al enviar el mensaje", e);
+                logger.log(Level.SEVERE, "Error sending message", e);
                 showAlert("Error al enviar el mensaje", "No se pudo enviar el mensaje", e.getMessage());
             }
         } else {

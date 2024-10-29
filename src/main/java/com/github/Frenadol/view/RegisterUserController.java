@@ -28,8 +28,6 @@ public class RegisterUserController {
     @FXML
     private TextField textUsername;
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     private PasswordField textPassword;
     @FXML
     private Button usersRegister;
@@ -52,17 +50,17 @@ public class RegisterUserController {
         String pass = textPassword.getText();
 
         if (username.isEmpty() || pass.isEmpty()) {
-            showAlert("Porfavor rellene los campos.");
+            showAlert("Please fill in all fields.");
             return;
         }
 
         if (imageFile == null) {
-            showAlert("Porfavor elija una foto de perfil.");
+            showAlert("Please choose a profile picture.");
             return;
         }
 
         if (!isPasswordSecure(pass)) {
-            showAlert("La contraseña debe contener al menos una mayúscula, un número y debe ser de al menos 8 caracteres.");
+            showAlert("Password must be at least 8 characters long, with an uppercase letter and a digit.");
             return;
         }
 
@@ -70,7 +68,7 @@ public class RegisterUserController {
             File xmlFile = new File(USERS_FILE);
 
             if (isUserExists(username, xmlFile)) {
-                showAlert("El nombre ya está en uso, porfavor escribe otro.");
+                showAlert("Username already in use. Please choose another.");
                 return;
             }
 
@@ -78,7 +76,7 @@ public class RegisterUserController {
             try {
                 hashedPassword = Security.hashPassword(pass);
             } catch (NoSuchAlgorithmException e) {
-                showAlert("Error al hashear la contraseña.");
+                showAlert("Error hashing the password.");
                 return;
             }
 
@@ -88,10 +86,10 @@ public class RegisterUserController {
             }
 
             addUserToXML(username, hashedPassword, imageData, xmlFile);
-            showAlert("Usuario registrado correctamente!");
+            showAlert("User registered successfully!");
             App.setRoot("primary");
         } catch (Exception e) {
-            showAlert("Error al regisrar el usuario " + e.getMessage());
+            showAlert("Error registering user: " + e.getMessage());
         }
     }
 
